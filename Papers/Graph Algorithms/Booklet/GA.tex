@@ -98,6 +98,8 @@
 
             مفاهیم اساسی گراف‌ها شامل عناصری هستند که در تعریف و توصیف یک گراف نقش دارند. در ادامه به توضیح این مفاهیم پرداخته می‌شود:
 
+            % MARK: footnote
+
             \begin{itemize}
                 
                 \item رأس یا نقطه\footnote{\hspace{2pt}Node - Vertex}: رأس‌ها یا نقاط، موجودیت‌هایی هستند که در یک گراف وجود دارند و می‌توانند با یال‌ها به هم متصل شوند. هر راس معمولاً با یک شناسه یا برچسب شناخته می‌شود.
@@ -106,7 +108,7 @@
 
                 \item درجه راس\footnote{\hspace{2pt}Vertex a of Degree}: درجه یک راس تعداد یال‌های متصل به آن راس است. برای یک گراف جهت‌دار، درجه راس به تعداد یال‌هایی که به آن راس وارد می‌شوند یا از آن خارج می‌شوند بستگی دارد.
 
-                \item گراف جهت‌دار\footnote{Graph Directed}: در یک گراف جهت‌دار، هر یال دارای جهت یا راه انتقالی است که از یک راس مبدأ به یک راس مقصد اشاره دارد.
+                \item گراف جهت‌دار\footnote{\hspace{2pt}Graph Directed}: در یک گراف جهت‌دار، هر یال دارای جهت یا راه انتقالی است که از یک راس مبدأ به یک راس مقصد اشاره دارد.
                 
                 \item گراف بدون جهت\footnote{\hspace{2pt}Graph Undirected}: در یک گراف بدون جهت، یال‌ها دوطرفه هستند و هیچ جهت مشخصی ندارند، به عبارت دیگر، ارتباط بین دو راس دوطرفه است.
 
@@ -149,6 +151,32 @@
                         \draw[line width=1pt] (C) -- node[midway, below] {$e_3$} (E);
                         \draw[line width=1pt] (D) -- node[midway, above] {$e_6$} (E);
     
+                    \end{tikzpicture}
+
+                \end{center}
+
+                لازم به ذکر است که گراف ساده دارای طوقه \footnote{\hspace{2pt}self-loop} و یا چندین یال متصل بین دو گره یکسان \footnote{\hspace{2pt}edges multiple} نمی‌باشد. به طور مثال گراف ساده نمی‌تواند همانند شکل زیر باشد:
+
+                \begin{center}
+                    
+                    \begin{tikzpicture}
+                        
+                        \node[circle, draw, thick] (A) at (-1,2) {$v_1$};
+                        \node[circle, draw, thick] (B) at (1,2) {$v_2$};
+                        \node[circle, draw, thick] (C) at (3,2) {$v_3$};
+                        \node[circle, draw, thick] (D) at (-3,0) {$v_4$};
+                        \node[circle, draw, thick] (E) at (-1,0) {$v_5$};
+      
+                        \draw[line width=1pt] (A) -- node[midway, above] {$e_1$} (B);
+                        \draw[line width=1pt] (A) edge[out=40, in=140] (B);
+                        \draw[line width=1pt] (A) -- node[midway, right] {$e_5$} (E);
+                        \draw[line width=1pt] (A) -- node[midway, right] {$e_4$} (D);
+                        \draw[line width=1pt] (B) -- node[midway, above] {$e_2$} (C);
+                        \draw[line width=1pt] (C) -- node[midway, below] {$e_3$} (E);
+                        \draw[line width=1pt] (C) edge[out=240, in=0] (E);
+                        \draw[line width=1pt] (D) -- node[midway, above] {$e_6$} (E);
+                        \draw[line width=1pt] (C) to [loop above] (C);
+
                     \end{tikzpicture}
 
                 \end{center}
