@@ -183,6 +183,298 @@
 
             \end{ScientificDefinition}
 
-            متن
+            در ادامه به بررسی برخی از خواص گراف‌ها می‌پردازیم که به شرح زیر است:
+
+            \begin{itemize}
+                
+                \item راس جدا شده\footnote{\hspace{2pt}Vertex Isolated}: یک راس جدا شده دارای درجه 0 می‌باشد.
+            
+                \item مجموع درجات یک گراف $G=(V,E)$ برابر است با $2|E|=2m$
+                
+                \item نکته حائز اهمیت این است که تعداد رئوس درجه فرد زوج است.
+
+            \end{itemize}
+
+            بررسی برخی از مفاهیم گراف:
+
+            \begin{itemize}
+                
+                \item متمم\footnote{\hspace{2pt}Complement}: گرافی متمم گراف دیگر است که تمام یال‌هایی که گراف $G$ دارد در گراف $G'$ نباشد. در واقع راه تشخیص منطقی آن به این شکل است که اگر دو گراف $G$ و $G'$ را بر روی یکدیگر قرار دهیم، آنگاه یک گراف کامل تشکیل می‌شود که تمام یال‌های آن گراف با یکدیگر رسم شده‌اند.
+                
+                \begin{center}
+                    
+                    \begin{tikzpicture}
+                        
+                        \node[circle, draw, thick] (A) at (-5,0) {$v_3$};
+                        \node[circle, draw, thick] (B) at (-3,0) {$v_4$};
+                        \node[circle, draw, thick] (C) at (-5,-1) {$v_2$};
+                        \node[circle, draw, thick] (D) at (-3,-1) {$v_5$};
+                        \node[circle, draw, thick] (E) at (-4,-2) {$v_1$};
+
+                        \draw[line width=1pt] (A) -- (C);
+                        \draw[line width=1pt] (B) -- (D);
+                        \draw[line width=1pt] (C) -- (D);
+                        \draw[line width=1pt] (D) -- (E);
+                        \draw[line width=1pt] (C) -- (E);
+
+                        \node[circle, draw, thick] (F) at (-1,0) {$v_3$};
+                        \node[circle, draw, thick] (G) at (1,0) {$v_4$};
+                        \node[circle, draw, thick] (H) at (-1,-1) {$v_2$};
+                        \node[circle, draw, thick] (I) at (1,-1) {$v_5$};
+                        \node[circle, draw, thick] (J) at (0,-2) {$v_1$};
+
+                        \draw[line width=1pt] (F) -- (J);
+                        \draw[line width=1pt] (G) -- (J);
+                        \draw[line width=1pt] (F) -- (G);
+                        \draw[line width=1pt] (G) -- (H);
+                        \draw[line width=1pt] (F) -- (I);
+
+                    \end{tikzpicture}
+
+                \end{center}
+
+                نکته‌ای که در اینجا حائز اهمیت است این است که متمم گراف کامل در واقع گراف خالی است و به این صورت می‌باشد که گراف کامل تمام یال‌های آن رسم شده است بنابراین متمم گراف کامل، یک گراف خالی با همان گره‌ها بدون هیچ یالی می‌باشد.
+
+                \begin{center}
+                    
+                    \begin{tikzpicture}
+                        
+                        \node[circle, draw, thick] (A) at (-1,0) {$v_1$};
+                        \node[circle, draw, thick] (B) at (1,0) {$v_2$};
+                        \node[circle, draw, thick] (C) at (-1,2) {$v_3$};
+                        \node[circle, draw, thick] (D) at (1,2) {$v_4$};
+
+                        \draw[line width=1pt] (A) -- (B);
+                        \draw[line width=1pt] (B) -- (C);
+                        \draw[line width=1pt] (C) -- (D);
+                        \draw[line width=1pt] (D) -- (A);
+                        \draw[line width=1pt] (A) -- (C);
+                        \draw[line width=1pt] (B) -- (D);
+                        
+                        \node[circle, draw, thick] (E) at (3,0) {$v_1$};
+                        \node[circle, draw, thick] (F) at (5,0) {$v_2$};
+                        \node[circle, draw, thick] (G) at (3,2) {$v_3$};
+                        \node[circle, draw, thick] (H) at (5,2) {$v_4$};
+
+                    \end{tikzpicture}
+
+                \end{center}
+
+                \item زیرگراف: یک گراف $H$، زیرگرافِ گراف $G$ می‌باشد به صورتی که دو شرط زیر برای آن برقرار باشد:
+
+                \begin{itemize}
+                    
+                    \item تمام گره‌های گراف $H$ دارای شرط $G(V(H) \subseteq V(G))$ باشد
+
+                    \item تمام یال‌های گراف $H$ دارای شرط $G(E(H) \subseteq E(G))$ باشد.
+
+                \end{itemize}
+
+                به طور مثال می‌توان به دو زیرگراف زیر که مشتق شده از گراف اصلی هستند توجه کرد:
+
+                \begin{center}
+                    
+                    \begin{tikzpicture}
+                        
+                        \node[circle, draw, thick] (A) at (-1,0) {$v_1$};
+                        \node[circle, draw, thick] (B) at (-1,-1) {$v_2$};
+                        \node[circle, draw, thick] (C) at (0,0) {$v_3$};
+                        \node[circle, draw, thick] (D) at (1,-1) {$v_4$};
+                        \node[circle, draw, thick] (E) at (0,-2) {$v_5$};
+
+                        \draw[line width=1pt] (A) -- (B);
+                        \draw[line width=1pt] (B) -- (C);
+                        \draw[line width=1pt] (C) -- (D);
+                        \draw[line width=1pt] (D) -- (E);
+                        \draw[line width=1pt] (E) -- (B);
+                        \draw[line width=1pt] (B) -- (D);
+
+                        \node[circle, draw, thick] (A) at (3,0) {$v_1$};
+                        \node[circle, draw, thick] (B) at (3,-1) {$v_2$};
+                        \node[circle, draw, thick] (C) at (4,0) {$v_3$};
+                        %\node[circle, draw, thick] (D) at (5,-1) {$v_4$};
+                        \node[circle, draw, thick] (E) at (4,-2) {$v_5$};
+
+                        \draw[line width=1pt] (A) -- (B);
+                        %\draw[line width=1pt] (B) -- (C);
+                        %\draw[line width=1pt] (C) -- (D);
+                        %\draw[line width=1pt] (D) -- (E);
+                        \draw[line width=1pt] (E) -- (B);
+                        %\draw[line width=1pt] (B) -- (D);
+
+                        %\node[circle, draw, thick] (A) at (7,0) {$v_1$};
+                        \node[circle, draw, thick] (B) at (7,-1) {$v_2$};
+                        \node[circle, draw, thick] (C) at (8,0) {$v_3$};
+                        \node[circle, draw, thick] (D) at (9,-1) {$v_4$};
+                        %\node[circle, draw, thick] (E) at (8,-2) {$v_5$};
+
+                        %\draw[line width=1pt] (A) -- (B);
+                        \draw[line width=1pt] (B) -- (C);
+                        \draw[line width=1pt] (C) -- (D);
+                        %\draw[line width=1pt] (D) -- (E);
+                        %\draw[line width=1pt] (E) -- (B);
+                        %\draw[line width=1pt] (B) -- (D);
+
+                    \end{tikzpicture}
+
+                \end{center}
+
+                \item زیرگراف فراگیر\footnote{\hspace{2pt}Subgraph Spanning}: زیرگرافِ فراگیر یک گراف G، زیرگرافی است که فقط با حذف یال‌ها به دست آید. به عبارت دیگر می‌توان گفت که در دو زیرگراف تمامی گره‌ها به صورت یکسان و مشابه وجود دارند اما یال‌های آن‌ها متفاوت است. به طور مثال می‌توان به دو زیرگراف فراگیر زیر که مشتق شده از گراف اصلی هستند توجه کرد:
+
+                \begin{center}
+                    
+                    \begin{tikzpicture}
+                        
+                        \node[circle, draw, thick] (A) at (-1,0) {$v_1$};
+                        \node[circle, draw, thick] (B) at (-1,-1) {$v_2$};
+                        \node[circle, draw, thick] (C) at (0,0) {$v_3$};
+                        \node[circle, draw, thick] (D) at (1,-1) {$v_4$};
+                        \node[circle, draw, thick] (E) at (0,-2) {$v_5$};
+
+                        \draw[line width=1pt] (A) -- (B);
+                        \draw[line width=1pt] (B) -- (C);
+                        \draw[line width=1pt] (C) -- (D);
+                        \draw[line width=1pt] (D) -- (E);
+                        \draw[line width=1pt] (E) -- (B);
+                        \draw[line width=1pt] (B) -- (D);
+
+                        \node[circle, draw, thick] (A) at (3,0) {$v_1$};
+                        \node[circle, draw, thick] (B) at (3,-1) {$v_2$};
+                        \node[circle, draw, thick] (C) at (4,0) {$v_3$};
+                        \node[circle, draw, thick] (D) at (5,-1) {$v_4$};
+                        \node[circle, draw, thick] (E) at (4,-2) {$v_5$};
+
+                        \draw[line width=1pt] (A) -- (B);
+                        %\draw[line width=1pt] (B) -- (C);
+                        %\draw[line width=1pt] (C) -- (D);
+                        %\draw[line width=1pt] (D) -- (E);
+                        %\draw[line width=1pt] (E) -- (B);
+                        \draw[line width=1pt] (B) -- (D);
+
+                        \node[circle, draw, thick] (A) at (7,0) {$v_1$};
+                        \node[circle, draw, thick] (B) at (7,-1) {$v_2$};
+                        \node[circle, draw, thick] (C) at (8,0) {$v_3$};
+                        \node[circle, draw, thick] (D) at (9,-1) {$v_4$};
+                        \node[circle, draw, thick] (E) at (8,-2) {$v_5$};
+
+                        %\draw[line width=1pt] (A) -- (B);
+                        %\draw[line width=1pt] (B) -- (C);
+                        \draw[line width=1pt] (C) -- (D);
+                        %\draw[line width=1pt] (D) -- (E);
+                        \draw[line width=1pt] (E) -- (B);
+                        \draw[line width=1pt] (B) -- (D);
+
+                    \end{tikzpicture}
+
+                \end{center}
+
+            \end{itemize}
+
+            \subsection{گراف‌های خاص}
+
+                \subsubsection{گراف تهی}
+
+                    گرافی که بدون گره باشد (و به طبع آن بدون یال‌ هم باشد) گراف تهی\footnote{\hspace{2pt}Graph Null} نامیده می‌شود.
+                
+                \subsubsection{گراف بدیهی}
+
+                    هر گرافی که فقط یک راس داشته باشد، گراف بدیهی\footnote{\hspace{2pt}Graph Trivial} نامیده می‌شود و تمام گراف‌های دیگر غیربدیهی\footnote{\hspace{2pt}Nontrivial} می‌باشند.
+
+                \subsubsection{گراف کامل}
+
+                    یک گراف $K_n$، گراف ساده‌ای است که تمام یال‌های ممکن آن به مقدار $\frac{n \times (n-1)}{2}$ رسم شده باشد. همینطور لازم به ذکر است که $n$ می‌تواند مقادیر مختلفی از مجموعه اعداد طبیعی داشته باشد. در زیر چند نمونه برای گراف $K_n$ با $n$ های 1، 2، 3، 4 و 5 رسم شده است.
+
+                    \begin{center}
+                        
+                        \begin{tikzpicture}
+                            
+                            \node[circle, draw, thick] (A) at (0,-4) {$v_1$};
+
+                            \node[circle, draw, thick] (B) at (2,-4) {$v_1$};
+                            \node[circle, draw, thick] (C) at (4,-4) {$v_2$};
+
+                            \draw[line width=1pt] (B) -- (C);
+
+                            \node[circle, draw, thick] (D) at (7,-2) {$v_1$};
+                            \node[circle, draw, thick] (E) at (6,-4) {$v_2$};
+                            \node[circle, draw, thick] (F) at (8,-4) {$v_3$};
+
+                            \draw[line width=1pt] (D) -- (E);
+                            \draw[line width=1pt] (E) -- (F);
+                            \draw[line width=1pt] (F) -- (D);
+
+                            \node[circle, draw, thick] (G) at (10,-2) {$v_1$};
+                            \node[circle, draw, thick] (H) at (12,-2) {$v_2$};
+                            \node[circle, draw, thick] (I) at (12,-4) {$v_3$};
+                            \node[circle, draw, thick] (J) at (10,-4) {$v_4$};
+
+                            \draw[line width=1pt] (G) -- (H);
+                            \draw[line width=1pt] (H) -- (I);
+                            \draw[line width=1pt] (I) -- (J);
+                            \draw[line width=1pt] (J) -- (G);
+                            \draw[line width=1pt] (G) -- (I);
+                            \draw[line width=1pt] (H) -- (J);
+
+                            \node[circle, draw, thick] (K) at (14.75,-1.5) {$v_1$};
+                            \node[circle, draw, thick] (L) at (16,-2.5) {$v_2$};
+                            \node[circle, draw, thick] (M) at (14,-4) {$v_4$};
+                            \node[circle, draw, thick] (N) at (15.5,-4) {$v_3$};
+                            \node[circle, draw, thick] (O) at (13.5,-2.5) {$v_5$};
+
+                            \draw[line width=1pt] (K) -- (L);
+                            \draw[line width=1pt] (K) -- (M);
+                            \draw[line width=1pt] (K) -- (N);
+                            \draw[line width=1pt] (K) -- (O);
+                            \draw[line width=1pt] (L) -- (M);
+                            \draw[line width=1pt] (L) -- (N);
+                            \draw[line width=1pt] (L) -- (O);
+                            \draw[line width=1pt] (M) -- (N);
+                            \draw[line width=1pt] (M) -- (O);
+                            \draw[line width=1pt] (N) -- (O);
+
+                        \end{tikzpicture}
+
+                    \end{center}
+
+                \subsubsection{گراف k-منظم}
+
+                    یک گراف k-منظم\footnote{\hspace{2pt}Graph k-Regular}، گراف ساده‌ای است با راس‌های دارای درجه یکسان با یکدیگر. به طور مثال یک گراف منظم-3 گرافی هست که درجه تمام راس‌های آن 3 باشد ولی این که این گراف دارای چند راس می‌باشد حائز اهمیت نمی‌باشد.
+
+                    \begin{center}
+                        
+                        \begin{tikzpicture}
+                            
+                            \node[circle, draw, thick] (A) at (0,0) {$v_0$};
+                            \node[circle, draw, thick] (B) at (3.5,-3) {$v_1$};
+                            \node[circle, draw, thick] (C) at (2,-6) {$v_2$};
+                            \node[circle, draw, thick] (D) at (-2,-6) {$v_3$};
+                            \node[circle, draw, thick] (E) at (-3.5,-3) {$v_4$};
+                            \node[circle, draw, thick] (F) at (0,-1.5) {$v_5$};
+                            \node[circle, draw, thick] (G) at (2,-3) {$v_6$};
+                            \node[circle, draw, thick] (H) at (1,-4.75) {$v_7$};
+                            \node[circle, draw, thick] (I) at (-1,-4.75) {$v_8$};
+                            \node[circle, draw, thick] (J) at (-2,-3) {$v_9$};
+
+                            \draw[line width=1pt] (A) -- (B);
+                            \draw[line width=1pt] (B) -- (C);
+                            \draw[line width=1pt] (C) -- (D);
+                            \draw[line width=1pt] (D) -- (E);
+                            \draw[line width=1pt] (E) -- (A);
+                            \draw[line width=1pt] (A) -- (F);
+                            \draw[line width=1pt] (B) -- (G);
+                            \draw[line width=1pt] (C) -- (H);
+                            \draw[line width=1pt] (D) -- (I);
+                            \draw[line width=1pt] (E) -- (J);
+                            \draw[line width=1pt] (F) -- (H);
+                            \draw[line width=1pt] (F) -- (I);
+                            \draw[line width=1pt] (G) -- (I);
+                            \draw[line width=1pt] (G) -- (J);
+                            \draw[line width=1pt] (H) -- (J);
+
+                        \end{tikzpicture}
+
+                    \end{center}
+
+                    یک مورد که در این قسمت شایان به توجه است این است که گراف کامل $k_n$ برابر با گراف منظم-(1-n) می‌باشد.
         
 \end{document}
