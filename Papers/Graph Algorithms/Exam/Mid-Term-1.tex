@@ -8,6 +8,7 @@
     top=2cm
 }
 
+\usepackage{tikz}
 \usepackage{dblfnote}
 \usepackage{lipsum}
 
@@ -39,27 +40,379 @@
 
         \item گراف ساده\footnote{\hspace{2pt}Graph Simple}: گراف ساده یک گراف است که هیچ یال تکراری یا حلقه‌ای (یالی که شروع و پایانش به یک راس یکسان است) ندارد. به عبارت دیگر، در گراف ساده، هیچ دو راس متصل نیز دوبار در یک یال قرار نمی‌گیرند.
         
+        \begin{center}
+            
+            \begin{tikzpicture}
+                
+                \node[circle, draw, thick] (A) at (-1,2) {$v_1$};
+                \node[circle, draw, thick] (B) at (1,2) {$v_2$};
+                \node[circle, draw, thick] (C) at (3,2) {$v_3$};
+                \node[circle, draw, thick] (D) at (-3,0) {$v_4$};
+                \node[circle, draw, thick] (E) at (-1,0) {$v_5$};
+
+                \draw[line width=1pt] (A) -- node[midway, above] {$e_1$} (B);
+                \draw[line width=1pt] (A) -- node[midway, right] {$e_5$} (E);
+                \draw[line width=1pt] (A) -- node[midway, right] {$e_4$} (D);
+                \draw[line width=1pt] (B) -- node[midway, above] {$e_2$} (C);
+                \draw[line width=1pt] (C) -- node[midway, below] {$e_3$} (E);
+                \draw[line width=1pt] (D) -- node[midway, above] {$e_6$} (E);
+
+            \end{tikzpicture}
+
+        \end{center}
+        
         \item درجه\footnote{\hspace{2pt}Degree}: درجه یک راس در گراف، تعداد یال‌های متصل به آن راس است. به عبارت دیگر، درجه یک راس نشان‌دهنده تعداد یال‌هایی است که به آن راس متصل هستند.
         
         \item راس منفرد\footnote{\hspace{2pt}Vertex Isolated}: راس منفرد یک راس در گراف است که هیچ یالی به آن متصل نیست، به عبارت دیگر درجه این راس صفر است.
         
         \item متمم\footnote{\hspace{2pt}Complement}: در مفهوم گراف، متمم یک گراف، گرافی است که همه یال‌های موجود در گراف اصلی حذف شده و همه یال‌هایی که بین رئوس موجود نیستند اضافه شده‌اند. به عبارت دیگر، این گراف حاصل از دو گراف اصلی که هیچ یال مشترکی ندارند می‌باشد.
+        
+        \begin{center}
+            
+            \begin{tikzpicture}
+                
+                \node[circle, draw, thick] (A) at (-5,0) {};
+                \node[circle, draw, thick] (B) at (-3,0) {};
+                \node[circle, draw, thick] (C) at (-5,-1) {};
+                \node[circle, draw, thick] (D) at (-3,-1) {};
+                \node[circle, draw, thick] (E) at (-4,-2) {};
+
+                \draw[line width=1pt] (A) -- (C);
+                \draw[line width=1pt] (B) -- (D);
+                \draw[line width=1pt] (C) -- (D);
+                \draw[line width=1pt] (D) -- (E);
+                \draw[line width=1pt] (C) -- (E);
+
+                \node[circle, draw, thick] (F) at (-1,0) {};
+                \node[circle, draw, thick] (G) at (1,0) {};
+                \node[circle, draw, thick] (H) at (-1,-1) {};
+                \node[circle, draw, thick] (I) at (1,-1) {};
+                \node[circle, draw, thick] (J) at (0,-2) {};
+
+                \draw[line width=1pt] (F) -- (J);
+                \draw[line width=1pt] (G) -- (J);
+                \draw[line width=1pt] (F) -- (G);
+                \draw[line width=1pt] (G) -- (H);
+                \draw[line width=1pt] (F) -- (I);
+
+            \end{tikzpicture}
+
+        \end{center}
 
         \item گراف خالی\footnote{\hspace{2pt}Graph Empty}: گراف  خالی یک گراف است که هیچ راس و هیچ یالی ندارد. به عبارت دیگر، یک گراف با تعداد رئوس و یال‌های صفر است.
 
         \item زیرگراف\footnote{\hspace{2pt}Subgraph}: زیرگراف یک گراف است که تمام رئوس و یال‌های آن در گراف اصلی وجود داشته باشند. به عبارت دیگر، اگر یک گراف با رئوس و یال‌های خاصی را در نظر بگیرید، هر گرافی که شامل زیرمجموعه‌ای ار آن رئوس و یال‌ها باشد، زیرگرافی از آن گراف است.
         
+        \begin{center}
+                    
+            \begin{tikzpicture}
+                
+                \node[circle, draw, thick] (A) at (-1,0) {};
+                \node[circle, draw, thick] (B) at (-1,-1) {};
+                \node[circle, draw, thick] (C) at (0,0) {};
+                \node[circle, draw, thick] (D) at (1,-1) {};
+                \node[circle, draw, thick] (E) at (0,-2) {};
+
+                \draw[line width=1pt] (A) -- (B);
+                \draw[line width=1pt] (B) -- (C);
+                \draw[line width=1pt] (C) -- (D);
+                \draw[line width=1pt] (D) -- (E);
+                \draw[line width=1pt] (E) -- (B);
+                \draw[line width=1pt] (B) -- (D);
+
+                \node[circle, draw, thick] (A) at (3,0) {};
+                \node[circle, draw, thick] (B) at (3,-1) {};
+                \node[circle, draw, thick] (C) at (4,0) {};
+                \node[circle, draw, thick] (E) at (4,-2) {};
+
+                \draw[line width=1pt] (A) -- (B);
+                \draw[line width=1pt] (E) -- (B);
+
+                \node[circle, draw, thick] (B) at (7,-1) {};
+                \node[circle, draw, thick] (C) at (8,0) {};
+                \node[circle, draw, thick] (D) at (9,-1) {};
+
+                \draw[line width=1pt] (B) -- (C);
+                \draw[line width=1pt] (C) -- (D);
+
+            \end{tikzpicture}
+
+        \end{center}
+
         \item گراف صفر\footnote{\hspace{2pt}Graph Null}: گراف صفر یک گراف است که تنها یک راس دارد و هیچ یالی ندارد.
 
         \item گراف کامل\footnote{\hspace{2pt}Graph Complete}: یک گراف است که همه رئوس آن به همه رئوس دیگر با یک یال متصل هستند. به عبارت دیگر، در یک گراف کامل هیچ دو راسی وجود ندارد که بهم هم متصصل نباشند.
+        
+        \begin{center}
+                        
+            \begin{tikzpicture}
+                
+                \node[circle, draw, thick] (A) at (0,-4) {};
+
+                \node[circle, draw, thick] (B) at (2,-4) {};
+                \node[circle, draw, thick] (C) at (4,-4) {};
+
+                \draw[line width=1pt] (B) -- (C);
+
+                \node[circle, draw, thick] (D) at (7,-2) {};
+                \node[circle, draw, thick] (E) at (6,-4) {};
+                \node[circle, draw, thick] (F) at (8,-4) {};
+
+                \draw[line width=1pt] (D) -- (E);
+                \draw[line width=1pt] (E) -- (F);
+                \draw[line width=1pt] (F) -- (D);
+
+                \node[circle, draw, thick] (G) at (10,-2) {};
+                \node[circle, draw, thick] (H) at (12,-2) {};
+                \node[circle, draw, thick] (I) at (12,-4) {};
+                \node[circle, draw, thick] (J) at (10,-4) {};
+
+                \draw[line width=1pt] (G) -- (H);
+                \draw[line width=1pt] (H) -- (I);
+                \draw[line width=1pt] (I) -- (J);
+                \draw[line width=1pt] (J) -- (G);
+                \draw[line width=1pt] (G) -- (I);
+                \draw[line width=1pt] (H) -- (J);
+
+                \node[circle, draw, thick] (K) at (14.75,-1.5) {};
+                \node[circle, draw, thick] (L) at (16,-2.5) {};
+                \node[circle, draw, thick] (M) at (14,-4) {};
+                \node[circle, draw, thick] (N) at (15.5,-4) {};
+                \node[circle, draw, thick] (O) at (13.5,-2.5) {};
+
+                \draw[line width=1pt] (K) -- (L);
+                \draw[line width=1pt] (K) -- (M);
+                \draw[line width=1pt] (K) -- (N);
+                \draw[line width=1pt] (K) -- (O);
+                \draw[line width=1pt] (L) -- (M);
+                \draw[line width=1pt] (L) -- (N);
+                \draw[line width=1pt] (L) -- (O);
+                \draw[line width=1pt] (M) -- (N);
+                \draw[line width=1pt] (M) -- (O);
+                \draw[line width=1pt] (N) -- (O);
+
+            \end{tikzpicture}
+
+        \end{center}
 
         \item گراف :k-منتظم\footnote{\hspace{2pt}Graph k-Regular} گراف k-منتظم یک گراف است که درجه همه رئوس آن برابر با k باشد. به عبارت دیگر، هر راس در این گراف، با k یال به راس‌های دیگر متصل است.
-
-        \item چرخه\footnote{\hspace{2pt}Graph Circuit - Graph Cycle}: در مفهوم گراف، چرخه یک مسیر بسته است که از یک راس شروع شده، از یال‌های مختلف گذر کرده و در نهایت به همان راس اول باز می‌گردد. به عبارت دیگر، یک چرخه گرافی که شامل حداقل بک راس و حداقل یک یال است و اولین و آخرین راس‌ها یکسان هستند.
         
+        \begin{center}
+                        
+            \begin{tikzpicture}
+                
+                \node[circle, draw, thick] (A) at (0,0) {};
+                \node[circle, draw, thick] (B) at (3.5,-3) {};
+                \node[circle, draw, thick] (C) at (2,-6) {};
+                \node[circle, draw, thick] (D) at (-2,-6) {};
+                \node[circle, draw, thick] (E) at (-3.5,-3) {};
+                \node[circle, draw, thick] (F) at (0,-1.5) {};
+                \node[circle, draw, thick] (G) at (2,-3) {};
+                \node[circle, draw, thick] (H) at (1,-4.75) {};
+                \node[circle, draw, thick] (I) at (-1,-4.75) {};
+                \node[circle, draw, thick] (J) at (-2,-3) {};
+
+                \draw[line width=1pt] (A) -- (B);
+                \draw[line width=1pt] (B) -- (C);
+                \draw[line width=1pt] (C) -- (D);
+                \draw[line width=1pt] (D) -- (E);
+                \draw[line width=1pt] (E) -- (A);
+                \draw[line width=1pt] (A) -- (F);
+                \draw[line width=1pt] (B) -- (G);
+                \draw[line width=1pt] (C) -- (H);
+                \draw[line width=1pt] (D) -- (I);
+                \draw[line width=1pt] (E) -- (J);
+                \draw[line width=1pt] (F) -- (H);
+                \draw[line width=1pt] (F) -- (I);
+                \draw[line width=1pt] (G) -- (I);
+                \draw[line width=1pt] (G) -- (J);
+                \draw[line width=1pt] (H) -- (J);
+
+            \end{tikzpicture}
+
+        \end{center}
+
+        \item چرخه\footnote{\hspace{2pt}Graph Circuit - Graph Cycle}: در مفهوم گراف، چرخه یک مسیر بسته است که از یک راس شروع شده، از یال‌های مختلف گذر کرده و در نهایت به همان راس اول باز می‌گردد. به عبارت دیگر، یک چرخه گرافی که شامل حداقل یک راس و حداقل یک یال است و اولین و آخرین راس‌ها یکسان هستند.
+        
+        \begin{center}
+            
+            \begin{tikzpicture}
+                
+                \node[circle, draw, thick] (D) at (7,-2) {};
+                \node[circle, draw, thick] (E) at (6,-4) {};
+                \node[circle, draw, thick] (F) at (8,-4) {};
+
+                \draw[line width=1pt] (D) -- (E);
+                \draw[line width=1pt] (E) -- (F);
+                \draw[line width=1pt] (F) -- (D);
+
+                \node[circle, draw, thick] (G) at (10,-2) {};
+                \node[circle, draw, thick] (H) at (12,-2) {};
+                \node[circle, draw, thick] (I) at (12,-4) {};
+                \node[circle, draw, thick] (J) at (10,-4) {};
+
+                \draw[line width=1pt] (G) -- (H);
+                \draw[line width=1pt] (H) -- (I);
+                \draw[line width=1pt] (I) -- (J);
+                \draw[line width=1pt] (J) -- (G);
+
+                \node[circle, draw, thick] (K) at (14.75,-1.5) {};
+                \node[circle, draw, thick] (L) at (16,-2.5) {};
+                \node[circle, draw, thick] (M) at (14,-4) {};
+                \node[circle, draw, thick] (N) at (15.5,-4) {};
+                \node[circle, draw, thick] (O) at (13.5,-2.5) {};
+
+                \draw[line width=1pt] (K) -- (L);
+                \draw[line width=1pt] (L) -- (N);
+                \draw[line width=1pt] (M) -- (N);
+                \draw[line width=1pt] (M) -- (O);
+                \draw[line width=1pt] (O) -- (K);
+
+                \node[circle, draw, thick] (P) at (18.5,-1.5) {};
+                \node[circle, draw, thick] (Q) at (20,-1.5) {};
+                \node[circle, draw, thick] (R) at (20.9,-2.75) {};
+                \node[circle, draw, thick] (S) at (20,-4) {};
+                \node[circle, draw, thick] (T) at (18.5,-4) {};
+                \node[circle, draw, thick] (U) at (17.6,-2.75) {};
+
+                \draw[line width=1pt] (P) -- (Q);
+                \draw[line width=1pt] (Q) -- (R);
+                \draw[line width=1pt] (R) -- (S);
+                \draw[line width=1pt] (S) -- (T);
+                \draw[line width=1pt] (T) -- (U);
+                \draw[line width=1pt] (U) -- (P);
+
+            \end{tikzpicture}
+
+        \end{center}
+
         \item گراف چرخ\footnote{\hspace{2pt}Graph Wheel}: در مفهوم گراف یک گراف چرخ یک نوع خاص از گراف است که از راس مرکزی و چندین راس دیگر تشکیل شده است که همگی به راس مرکزی متصل هستند و هیچ یالی بین رئوس غیرمرکزیِ غیرمجاور وجود ندارد. به عبارت دیگر، یک گراف چرخ همانند گراف چرخه است با این تفاوت که یک راس به عنوان مرکز در نظر گرفته می‌شود و همه رئوس دیگر به آن متصل می‌شوند.
         
+        \begin{center}
+            
+            \begin{tikzpicture}
+                
+                \node[circle, draw, thick] (D) at (7,-2) {};
+                \node[circle, draw, thick] (E) at (6,-4) {};
+                \node[circle, draw, thick] (F) at (8,-4) {};
+                \node[circle, draw, thick] (W) at (7,-3.2) {};
+
+                \draw[line width=1pt] (D) -- (E);
+                \draw[line width=1pt] (E) -- (F);
+                \draw[line width=1pt] (F) -- (D);
+                \draw[line width=1pt] (D) -- (W);
+                \draw[line width=1pt] (E) -- (W);
+                \draw[line width=1pt] (F) -- (W);
+
+                \node[circle, draw, thick] (G) at (10,-2) {};
+                \node[circle, draw, thick] (H) at (12,-2) {};
+                \node[circle, draw, thick] (I) at (12,-4) {};
+                \node[circle, draw, thick] (J) at (10,-4) {};
+                \node[circle, draw, thick] (X) at (11,-3) {};
+
+                \draw[line width=1pt] (G) -- (H);
+                \draw[line width=1pt] (H) -- (I);
+                \draw[line width=1pt] (I) -- (J);
+                \draw[line width=1pt] (J) -- (G);
+                \draw[line width=1pt] (G) -- (X);
+                \draw[line width=1pt] (H) -- (X);
+                \draw[line width=1pt] (I) -- (X);
+                \draw[line width=1pt] (J) -- (X);
+
+                \node[circle, draw, thick] (K) at (14.75,-1.5) {};
+                \node[circle, draw, thick] (L) at (16,-2.5) {};
+                \node[circle, draw, thick] (M) at (14,-4) {};
+                \node[circle, draw, thick] (N) at (15.5,-4) {};
+                \node[circle, draw, thick] (O) at (13.5,-2.5) {};
+                \node[circle, draw, thick] (Y) at (14.75,-2.75) {};
+
+                \draw[line width=1pt] (K) -- (L);
+                \draw[line width=1pt] (L) -- (N);
+                \draw[line width=1pt] (M) -- (N);
+                \draw[line width=1pt] (M) -- (O);
+                \draw[line width=1pt] (O) -- (K);
+                \draw[line width=1pt] (K) -- (Y);
+                \draw[line width=1pt] (L) -- (Y);
+                \draw[line width=1pt] (M) -- (Y);
+                \draw[line width=1pt] (N) -- (Y);
+                \draw[line width=1pt] (O) -- (Y);
+
+                \node[circle, draw, thick] (P) at (18.5,-1.5) {};
+                \node[circle, draw, thick] (Q) at (20,-1.5) {};
+                \node[circle, draw, thick] (R) at (20.9,-2.75) {};
+                \node[circle, draw, thick] (S) at (20,-4) {};
+                \node[circle, draw, thick] (T) at (18.5,-4) {};
+                \node[circle, draw, thick] (U) at (17.6,-2.75) {};
+                \node[circle, draw, thick] (Z) at (19.25,-2.75) {};
+
+                \draw[line width=1pt] (P) -- (Q);
+                \draw[line width=1pt] (Q) -- (R);
+                \draw[line width=1pt] (R) -- (S);
+                \draw[line width=1pt] (S) -- (T);
+                \draw[line width=1pt] (T) -- (U);
+                \draw[line width=1pt] (U) -- (P);
+                \draw[line width=1pt] (P) -- (Z);
+                \draw[line width=1pt] (Q) -- (Z);
+                \draw[line width=1pt] (R) -- (Z);
+                \draw[line width=1pt] (S) -- (Z);
+                \draw[line width=1pt] (T) -- (Z);
+                \draw[line width=1pt] (U) -- (Z);
+
+
+            \end{tikzpicture}
+
+        \end{center}
+        
         \item گراف مکعب n بُعدی\footnote{\hspace{2pt}Graph n-Cube}: در مفهوم گراف، مکعب n بُعدی یک گراف با ساختار مکعبی است که دارای $n^2$ راس و $n \times (n-1)^2$ یال است. این گراف معمولاً با استفاده از ارقام دودویی به عنوان برچسب رئوس تعریف می‌شود، به طوری که هر راس با یک دنباله n بیتی نمایش داده می‌شود و هر یال به دو راس متصل است که دنباله‌های باینری متفاوت در یک بیت داشته باشند.
+        
+        \begin{center}
+            
+            \begin{tikzpicture}
+                
+                \node[circle, draw, thick] (A) at (0,0) {};
+                \node[circle, draw, thick] (B) at (2,0) {};
+
+                \draw[line width=1pt] (A) -- (B);
+
+                \node[circle, draw, thick] (A) at (4,2) {};
+                \node[circle, draw, thick] (B) at (6,2) {};
+                \node[circle, draw, thick] (C) at (6,0) {};
+                \node[circle, draw, thick] (D) at (4,0) {};
+
+                \draw[line width=1pt] (A) -- (B);
+                \draw[line width=1pt] (B) -- (C);
+                \draw[line width=1pt] (C) -- (D);
+                \draw[line width=1pt] (D) -- (A);
+
+                \node[circle, draw, thick] (A) at (8,2) {};
+                \node[circle, draw, thick] (B) at (10,2) {};
+                \node[circle, draw, thick] (C) at (10,0) {};
+                \node[circle, draw, thick] (D) at (8,0) {};
+
+                \node[circle, draw, thick] (E) at (8.7,2.5) {};
+                \node[circle, draw, thick] (F) at (10.7,2.5) {};
+                \node[circle, draw, thick] (G) at (10.7,0.5) {};
+                \node[circle, draw, thick] (H) at (8.7,0.5) {};
+
+                \draw[line width=1pt] (A) -- (B);
+                \draw[line width=1pt] (B) -- (C);
+                \draw[line width=1pt] (C) -- (D);
+                \draw[line width=1pt] (D) -- (A);
+
+                \draw[line width=1pt] (A) -- (E);
+                \draw[line width=1pt] (B) -- (F);
+                \draw[line width=1pt] (C) -- (G);
+                \draw[line width=1pt] (D) -- (H);
+
+                \draw[line width=1pt] (E) -- (F);
+                \draw[line width=1pt] (F) -- (G);
+                \draw[line width=1pt] (G) -- (H);
+                \draw[line width=1pt] (H) -- (E);
+
+
+            \end{tikzpicture}
+
+        \end{center}
         
         \item گراف مسیر\footnote{\hspace{2pt}Graph Path}: گراف مسیر یک گراف است که رئوس آن به صورت متوالی به هم متصل هستند و هیچ یال تکراری یا حلقه‌ای وجود ندارد. به عبارت دیگر، این گراف مانند زنجیره است که رئوس آن به ترتیب به یکدیگر متصل شده‌اند.
         
@@ -111,8 +464,32 @@
 
     \begin{itemize}
         
+        \item مجموع درجات یک گراف $G=(V,E)$ برابر است با $2|E|=2m$.
+        
+        \item تعداد رئوسی که درجه آن‌ها فرد است، زوج می‌باشد.
+
+        \item گراف کامل $K_n$ با گراف منتظم-$n-1$ برابر است.
+
+        \item یک پیاده‌روی از $u$ به یک $v$ (به صورتی که $u \neq v$) حاوی مسیری از $u$ به $v$ است. (نکته: حذف چرخه‌های فرعی)
+
+        \item یک پیاده‌روی بسته با طول فرد شامل چرخه‌ای از طول فرد است.
+
+        \item 
+
+        \item
+
         \item 
 
     \end{itemize}
+
+    اکنون به کاربردهای دورن اسلایدها پرداخته می‌شود و موراد به تفکیک توضیح داده می‌شود.
+
+    \begin{itemize}
+        
+        \item 
+
+    \end{itemize}
+
+    \noindent\hrulefill
 
 \end{document}
