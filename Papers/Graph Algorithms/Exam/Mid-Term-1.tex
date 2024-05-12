@@ -643,9 +643,32 @@
 
     \noindent\hrulefill
 
-    \paragraph{سوال:} گراف‌های دو بخشی و دو بخشی کامل را شرح دهید.
+    \paragraph{سوال:} گراف‌های دوبخشی و دوبخشی کامل را شرح دهید.
 
-    \paragraph{پاسخ:} سلام
+    \paragraph{پاسخ:} در گراف دوبخشی مجموعه رئوس آن را می‌توان به دو زیرمجموعه جدا از هم تقسیم کرد، به طوری که هیچ راس درون هر زیرمجموعه با راسی در همان زیرمجموعه دیگر متصل نباشد. به عبارت دیگر، این گراف متشکل از دو مجموعه راس است که هر یال تنها بین یک راس از یک مجموعه و یک راس از مجموعه دیگر وجود دارد، نه دو راس از همان مجموعه. به طور مثال گراف زیر یک گراف دوبخشی است.
+
+    \begin{center}
+        
+        \begin{tikzpicture}
+            
+            \node[circle, draw=none, fill=black, thick] (A) at (0,0) {};
+            \node[circle, draw=none, fill=black, thick] (B) at (2,0) {};
+            \node[circle, draw=none, fill=black, thick] (C) at (4,0) {};
+            \node[circle, draw, thick] (D) at (0,2) {};
+            \node[circle, draw, thick] (E) at (2,2) {};
+            \node[circle, draw, thick] (F) at (4,2) {};
+
+            \draw[line width=1pt] (A) -- (D);
+            \draw[line width=1pt] (B) -- (E);
+            \draw[line width=1pt] (C) -- (F);
+            \draw[line width=1pt] (A) -- (E);
+            \draw[line width=1pt] (B) -- (D);
+            \draw[line width=1pt] (B) -- (F);
+            \draw[line width=1pt] (C) -- (E);
+
+        \end{tikzpicture}
+
+    \end{center}
 
     \noindent\hrulefill
 
