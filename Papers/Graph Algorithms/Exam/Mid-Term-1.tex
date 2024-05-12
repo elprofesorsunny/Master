@@ -416,6 +416,61 @@
         
         \item گراف مسیر\footnote{\hspace{2pt}Graph Path}: گراف مسیر یک گراف است که رئوس آن به صورت متوالی به هم متصل هستند و هیچ یال تکراری یا حلقه‌ای وجود ندارد. به عبارت دیگر، این گراف مانند زنجیره است که رئوس آن به ترتیب به یکدیگر متصل شده‌اند.
         
+        \begin{center}
+            
+            \begin{tikzpicture}
+
+                \node[circle, draw, thick] (A) at (4,-2) {};
+                \node[circle, draw, thick] (B) at (4,-4) {};
+
+                \draw[line width=1pt] (A) -- (B);
+                
+                \node[circle, draw, thick] (D) at (7,-2) {};
+                \node[circle, draw, thick] (E) at (6,-4) {};
+                \node[circle, draw, thick] (F) at (8,-4) {};
+
+                \draw[line width=1pt] (D) -- (E);
+                \draw[line width=1pt] (F) -- (D);
+
+                \node[circle, draw, thick] (G) at (10,-2) {};
+                \node[circle, draw, thick] (H) at (12,-2) {};
+                \node[circle, draw, thick] (I) at (12,-4) {};
+                \node[circle, draw, thick] (J) at (10,-4) {};
+
+                \draw[line width=1pt] (G) -- (H);
+                \draw[line width=1pt] (H) -- (I);
+                \draw[line width=1pt] (J) -- (G);
+
+                \node[circle, draw, thick] (K) at (14.75,-1.5) {};
+                \node[circle, draw, thick] (L) at (16,-2.5) {};
+                \node[circle, draw, thick] (M) at (14,-4) {};
+                \node[circle, draw, thick] (N) at (15.5,-4) {};
+                \node[circle, draw, thick] (O) at (13.5,-2.5) {};
+
+                \draw[line width=1pt] (K) -- (L);
+                \draw[line width=1pt] (L) -- (N);
+                \draw[line width=1pt] (M) -- (O);
+                \draw[line width=1pt] (O) -- (K);
+
+                \node[circle, draw, thick] (P) at (18.5,-1.5) {};
+                \node[circle, draw, thick] (Q) at (20,-1.5) {};
+                \node[circle, draw, thick] (R) at (20.9,-2.75) {};
+                \node[circle, draw, thick] (S) at (20,-4) {};
+                \node[circle, draw, thick] (T) at (18.5,-4) {};
+                \node[circle, draw, thick] (U) at (17.6,-2.75) {};
+
+                \draw[line width=1pt] (P) -- (Q);
+                \draw[line width=1pt] (Q) -- (R);
+                \draw[line width=1pt] (R) -- (S);
+                \draw[line width=1pt] (T) -- (U);
+                \draw[line width=1pt] (U) -- (P);
+
+
+
+            \end{tikzpicture}
+
+        \end{center}
+
         \item گراف بازه\footnote{\hspace{2pt}Graph Interval}: گراف بازه یک نوع خاص از گراف است که رئوس آن بازه‌های اعداد حقیقی را نمایش می‌دهند و دو راس متصل هستند اگر و تنها اگر بازه‌های متناظر با آن دو راس تلاقی داشته باشند. به عبارت دیگر، گراف بازه می‌تواند به عنوان نمایشی از یک مجموعهٔ بازه‌های اعداد حقیقی دیده شود، که هر گره نمایانگر یک بازه است و یال بین دو گره وجود دارد اگر و تنها اگر بازه‌های متناظر با آن دو گره تلاقی داشته باشند.
         
         \item گراف قوس دایره‌ای\footnote{\hspace{2pt}Graph Circular-arc}: گراف قوس دایره‌ای، یک نوع خاص از گراف است که رئوس آن بازه‌های یک دایره را نمایش می‌دهند و دو راس متصل هستند اگر و تنها اگر بازه‌های متناظر با آن دو راس اشتراک غیرخالی داشته باشند. به عبارت دیگر، گراف قوس دایره‌ای می‌تواند به عنوان نمایشی از بازه‌های یک دایره دیده شود، که هر راس نمایانگر یک بازه است و دو راس متصل هستند اگر و تنها اگر بازه‌های متناظر با آن دو راس اشتراک غیرخالی داشته باشند.
@@ -474,11 +529,21 @@
 
         \item یک پیاده‌روی بسته با طول فرد شامل چرخه‌ای از طول فرد است.
 
-        \item 
+        \item در گراف جهت‌دار، هر گراف بدون دور\footnote{\hspace{2pt}Graph Acyclic} حداقل یک راس دارد که درجه ورودی آن برابر صفر باشد.
 
-        \item
+        \item تعداد پیاده‌روی‌های به طول $k$ از راس $i$ تا راس $j$ برابر است با $A^k_{ij}$
 
-        \item 
+        \item اگر تابع اثر یک ماتریس نشان‌دهنده مجموع درایه‌های قطر اصلی ماتریس باشد، آنگاه در گراف‌های بدون جهت داریم که:
+        
+            \begin{itemize}
+                
+                \item مجموع درایه‌های قطر اصلیِ ماتریس مجاورت برابر صفر می‌باشد. به عبارت دیگر $tr(A)=0$ برقرار است.
+                
+                \item مجموع درایه‌های قطر اصلیِ توان دوم ماتریس مجاورت، دو برابر تعداد یال‌ها می‌باشد. به عبارت دیگر $tr(A^2)=2|E|$ برقرار است.
+                
+                \item مجموع درایه‌های قطر اصلیِ توان سوم ماتریس مجاورت، شش برابر تعداد مثلث‌های موجود در گراف می‌باشد. به عبارت دیگر $tr(A^3)=the \hspace{3pt} number \hspace{3pt} of \hspace{3pt} triangles \hspace{3pt} in \hspace{3pt} graph$ برقرار است.
+
+            \end{itemize}
 
     \end{itemize}
 
@@ -486,7 +551,63 @@
 
     \begin{itemize}
         
-        \item 
+        \item کاربردهای گراف بازه‌ای:
+        
+        \begin{itemize}
+
+            \item مدل کردن مسائل دنیای واقعی با ساختار ریاضی
+            
+            \item زمان‌بندی رویدادهای مختلف و مدیریت تداخل‌های زمانی
+            
+            \item نقشه برداری DNA
+
+            \item نحوه تنظیم دمای یخچال‌های آزمایشگاه و تعیین تعداد یخچال‌های مورد نیاز به طوری که هر ترکیب شیمیایی در دمای متناسب با خود قرار بگیرد.
+
+        \end{itemize}
+
+        \item کاربردهای گراف قوس دایره‌ای:
+        
+        \begin{itemize}
+            
+            \item ژنتیک
+            
+            \item کنترل ترافیک
+
+        \end{itemize}
+
+        \item کاربردهای گراف ایزومرفیک:
+        
+        \begin{itemize}
+            
+            \item شناسایی مولکول‌ای مشابه
+
+            \item تشخیص الگو و مباحث مرتبط با بینایی ماشین\footnote{\hspace{2pt}Vision Computer}
+            
+            \item به منظور تشخیص یکسان بودن ساختار دو ترکیب در علم شیمی
+
+        \end{itemize}
+
+        \item کاربردهای زیرگراف ایزومرفیک:
+        
+        \begin{itemize}
+            
+            \item علوم مهندسی
+            
+            \item شیمی آلی
+
+            \item زیست‌شناسی
+
+            \item تطبیق الگو
+            
+            \item تشخیص الگو در بیوانفورماتیک و محاسبات زیستی
+
+            \item پردازش تصویر\footnote{\hspace{2pt}Processing Image} و بینایی ماشین
+
+            \item شناسایی زیرمولکول‌های یک مولکول‌ معین
+
+            \item تشخیص شکل‌های غیرطبیعی\footnote{\hspace{2pt}shapes distroted of Recognition}
+
+        \end{itemize}
 
     \end{itemize}
 
