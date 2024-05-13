@@ -477,8 +477,77 @@
         
         \item گراف دوبخشی\footnote{\hspace{2pt}Graph Bipartite}: گراف دوبخشی یک گراف است که مجموعه رئوس آن را می‌توان به دو زیرمجموعه جدا از هم تقسیم کرد، به طوری که هیچ راس درون هر زیرمجموعه با راسی در همان زیرمجموعه دیگر متصل نباشد. به عبارت دیگر، این گراف متشکل از دو مجموعه راس است که هر یال تنها بین یک راس از یک مجموعه و یک راس از مجموعه دیگر وجود دارد، نه دو راس از همان مجموعه.
 
+        \begin{center}
+        
+            \begin{tikzpicture}
+                
+                \node[circle, draw=none, fill=black, thick] (A) at (0,0) {};
+                \node[circle, draw=none, fill=black, thick] (B) at (2,0) {};
+                \node[circle, draw=none, fill=black, thick] (C) at (4,0) {};
+                \node[circle, draw, thick] (D) at (0,3) {};
+                \node[circle, draw, thick] (E) at (2,3) {};
+                \node[circle, draw, thick] (F) at (4,3) {};
+    
+                \draw[line width=1pt] (A) -- (D);
+                \draw[line width=1pt] (B) -- (E);
+                \draw[line width=1pt] (C) -- (F);
+                \draw[line width=1pt] (A) -- (E);
+                \draw[line width=1pt] (B) -- (D);
+                \draw[line width=1pt] (B) -- (F);
+                \draw[line width=1pt] (C) -- (E);
+    
+            \end{tikzpicture}
+    
+        \end{center}
+
         \item گراف دوبخشی کامل\footnote{\hspace{2pt}Graph Bipartite Complete}: گراف دوبخشی کامل یک گراف دوبخشی است که همه رئوس یک زیرمجموعه با همه رئوس زیرمجموعه دیگر به صورت کامل متصل هستند. به عبارت دیگر، هر راس در یک زیرمجموعه با همه راس‌های زیرمجموعه دیگر متصل است.
         
+        \begin{center}
+        
+            \begin{tikzpicture}
+                
+                \node[circle, draw=none, fill=black, thick] (A) at (0,0) {};
+                \node[circle, draw=none, fill=black, thick] (B) at (2,0) {};
+                \node[circle, draw=none, fill=black, thick] (C) at (4,0) {};
+                \node[circle, draw, thick] (D) at (0,3) {};
+                \node[circle, draw, thick] (E) at (2,3) {};
+                \node[circle, draw, thick] (F) at (4,3) {};
+    
+                \draw[line width=1pt] (A) -- (D);
+                \draw[line width=1pt] (A) -- (E);
+                \draw[line width=1pt] (A) -- (F);
+                \draw[line width=1pt] (B) -- (D);
+                \draw[line width=1pt] (B) -- (E);
+                \draw[line width=1pt] (B) -- (F);
+                \draw[line width=1pt] (C) -- (D);
+                \draw[line width=1pt] (C) -- (E);
+                \draw[line width=1pt] (C) -- (F);
+                
+                \node[circle, draw=none, fill=black, thick] (A) at (6,0) {};
+                \node[circle, draw=none, fill=black, thick] (B) at (8,0) {};
+                \node[circle, draw=none, fill=black, thick] (C) at (10,0) {};
+                \node[circle, draw=none, fill=black, thick] (D) at (12,0) {};
+                \node[circle, draw, thick] (E) at (7,3) {};
+                \node[circle, draw, thick] (F) at (9,3) {};
+                \node[circle, draw, thick] (G) at (11,3) {};
+    
+                \draw[line width=1pt] (A) -- (E);
+                \draw[line width=1pt] (A) -- (F);
+                \draw[line width=1pt] (A) -- (G);
+                \draw[line width=1pt] (B) -- (E);
+                \draw[line width=1pt] (B) -- (F);
+                \draw[line width=1pt] (B) -- (G);
+                \draw[line width=1pt] (C) -- (E);
+                \draw[line width=1pt] (C) -- (F);
+                \draw[line width=1pt] (C) -- (G);
+                \draw[line width=1pt] (D) -- (E);
+                \draw[line width=1pt] (D) -- (F);
+                \draw[line width=1pt] (D) -- (G);
+    
+            \end{tikzpicture}
+    
+        \end{center}
+
         \item پیاده‌روی\footnote{\hspace{2pt}Walk}: در مفهوم گراف، پیاده‌روی یک دنباله از رئوس و یال‌ها است که از یک راس شروع شده و در آن رئوس و یال‌ها به ترتیب دنبال می‌شوند، به طوری که هر راس در مسیر با یک یال به راس بعدی متصل باشد. به عبارت دیگر، پیاده‌روی می‌تواند شامل تکرار یال‌ها و رئوس باشد.
         
         \item مسیر\footnote{\hspace{2pt}Trail}: در مفهوم گراف، مسیر یک دنباله از یال‌ها و رئوس است که هر یال در آن فقط یک بار ظاهر شده ولی رئوس ممکن است چندین بار ظاهر شوند. به عبارت دیگر، یک مسیر یک پیاده‌روی است که هیچ یال تکراری ندارد.
@@ -654,9 +723,9 @@
             \node[circle, draw=none, fill=black, thick] (A) at (0,0) {};
             \node[circle, draw=none, fill=black, thick] (B) at (2,0) {};
             \node[circle, draw=none, fill=black, thick] (C) at (4,0) {};
-            \node[circle, draw, thick] (D) at (0,2) {};
-            \node[circle, draw, thick] (E) at (2,2) {};
-            \node[circle, draw, thick] (F) at (4,2) {};
+            \node[circle, draw, thick] (D) at (0,3) {};
+            \node[circle, draw, thick] (E) at (2,3) {};
+            \node[circle, draw, thick] (F) at (4,3) {};
 
             \draw[line width=1pt] (A) -- (D);
             \draw[line width=1pt] (B) -- (E);
@@ -670,11 +739,192 @@
 
     \end{center}
 
+    همینطور در گراف دوبخشی کامل همه رئوس یک زیرمجموعه با همه رئوس زیرمجموعه دیگر به صورت کامل متصل هستند. به عبارت دیگر، هر راس در یک زیرمجموعه با همه راس‌های زیرمجموعه دیگر متصل است. به طور مثال هر دو گرافِ زیر یک گرافِ دوبخشی کامل هستند.
+
+    \begin{center}
+        
+        \begin{tikzpicture}
+            
+            \node[circle, draw=none, fill=black, thick] (A) at (0,0) {};
+            \node[circle, draw=none, fill=black, thick] (B) at (2,0) {};
+            \node[circle, draw=none, fill=black, thick] (C) at (4,0) {};
+            \node[circle, draw, thick] (D) at (0,3) {};
+            \node[circle, draw, thick] (E) at (2,3) {};
+            \node[circle, draw, thick] (F) at (4,3) {};
+
+            \draw[line width=1pt] (A) -- (D);
+            \draw[line width=1pt] (A) -- (E);
+            \draw[line width=1pt] (A) -- (F);
+            \draw[line width=1pt] (B) -- (D);
+            \draw[line width=1pt] (B) -- (E);
+            \draw[line width=1pt] (B) -- (F);
+            \draw[line width=1pt] (C) -- (D);
+            \draw[line width=1pt] (C) -- (E);
+            \draw[line width=1pt] (C) -- (F);
+            
+            \node[circle, draw=none, fill=black, thick] (A) at (6,0) {};
+            \node[circle, draw=none, fill=black, thick] (B) at (8,0) {};
+            \node[circle, draw=none, fill=black, thick] (C) at (10,0) {};
+            \node[circle, draw=none, fill=black, thick] (D) at (12,0) {};
+            \node[circle, draw, thick] (E) at (7,3) {};
+            \node[circle, draw, thick] (F) at (9,3) {};
+            \node[circle, draw, thick] (G) at (11,3) {};
+
+            \draw[line width=1pt] (A) -- (E);
+            \draw[line width=1pt] (A) -- (F);
+            \draw[line width=1pt] (A) -- (G);
+            \draw[line width=1pt] (B) -- (E);
+            \draw[line width=1pt] (B) -- (F);
+            \draw[line width=1pt] (B) -- (G);
+            \draw[line width=1pt] (C) -- (E);
+            \draw[line width=1pt] (C) -- (F);
+            \draw[line width=1pt] (C) -- (G);
+            \draw[line width=1pt] (D) -- (E);
+            \draw[line width=1pt] (D) -- (F);
+            \draw[line width=1pt] (D) -- (G);
+
+        \end{tikzpicture}
+
+    \end{center}
+
     \noindent\hrulefill
 
-    \paragraph{سوال:} نظم توپولوژیکی\footnote{\hspace{2pt}Order Topological} گراف زیر را به دست آورید.
+    \paragraph{سوال:} ترتیب توپولوژیک\footnote{\hspace{2pt}Order Topological} گراف زیر را به دست آورید.
  
-    \paragraph{پاسخ:} سلام
+    \begin{center}
+        
+        \begin{tikzpicture}
+
+            \node[circle, draw, thick] (A) at (-1,2) {$v_1$};
+            \node[circle, draw, thick] (B) at (1,2) {$v_2$};
+            \node[circle, draw, thick] (C) at (3,2) {$v_3$};
+            \node[circle, draw, thick] (D) at (-3,0) {$v_4$};
+            \node[circle, draw, thick] (E) at (-1,0) {$v_5$};
+
+            \draw[line width=1pt,->] (A) -- (B);
+            \draw[line width=1pt,->] (A) -- (E);
+            \draw[line width=1pt,->] (D) -- (A);
+            \draw[line width=1pt,->] (B) -- (C);
+            \draw[line width=1pt,->] (C) -- (E);
+            \draw[line width=1pt,->] (D) -- (E);
+
+        \end{tikzpicture}
+
+    \end{center}
+
+    \paragraph{پاسخ:} ترتیب توپولوژیک یک ترکیب خطی از رئوس یک گراف جهت‌دار است که شرایط خاصی را ارضا می‌کند. به این صورت که اگر در گراف، یالی از راس u به راس v وجود داشته باشد، راس u قبل از راس v در ترتیب توپولوژیک قرار می‌گیرد. به عبارت دیگر، هیچ دور موجود در گراف نیست و همه رئوس به ترتیبی قرار می‌گیرند که هر راس قبل از راس‌هایی که به آن وابسته‌اند، قرار بگیرد.
+
+    به طور مثال در گراف جهت‌داری که صورت سوال مطرح کرده است باید به این صورت عمل کنیم که بتوانیم راسی را پیدا کنیم که درجه ورودی آن برابر صفر باشد. در گراف بالا راس $v_4$ دارای این خصوصیت می‌باشد و درجه ورودی آن برابر مقدار صفر است. بنابراین مجموعه مورد نظر برای ترتیب توپولوژیک از این راس آغاز می‌شود.
+
+    \begin{center}
+        
+        $Topological \hspace{3pt} Order = \{v_4\}$
+
+    \end{center}
+
+    سپس در ادامه باید راس $v_4$ با تمام یال‌های مرتبط به آن حذف شوند تا بتوان همین مراحل را مجدد طی کرد و راس بعد را شناسایی و در مجموعه قرار داد. بنابراین در صورت حذف راس $v_4$ گراف مربوطه به شکل زیر خواهد در آمد.
+
+    \begin{center}
+        
+        \begin{tikzpicture}
+            
+            \node[circle, draw, thick] (A) at (-1,2) {$v_1$};
+            \node[circle, draw, thick] (B) at (1,2) {$v_2$};
+            \node[circle, draw, thick] (C) at (3,2) {$v_3$};
+            \node[circle, draw, thick] (E) at (-1,0) {$v_5$};
+
+            \draw[line width=1pt,->] (A) -- (B);
+            \draw[line width=1pt,->] (A) -- (E);
+            \draw[line width=1pt,->] (B) -- (C);
+            \draw[line width=1pt,->] (C) -- (E);
+
+        \end{tikzpicture}
+
+    \end{center}
+
+    اکنون مجدداً همان شیوه را تکرار خواهیم کرد به این صورت که به دنبال راسی می‌گردیم که درجه ورودی آن برابر با مقدار صفر باشد که در گراف جدید راس $v_1$ دارای این ویژگی می‌باشد. بنابراین مجموعه ترتیب توپولوژیک را به‌روز کرده و مجدداً مراحل را انجام می‌دهیم.
+
+    \begin{center}
+        
+        $Topological \hspace{3pt} Order = \{v_4, v_1\}$
+
+    \end{center}
+
+    همواره باید با اضافه شدن راس مورد نظر به مجموعه ترتیب توپولوژیک، آن راس و یال‌های متصل به آن راس حذف گردند بنابراین در این قسمت راس $v_1$ حذف می‌شود. پس گراف جدید به شکل زیر خواهد بود.
+
+    \begin{center}
+        
+        \begin{tikzpicture}
+            
+            \node[circle, draw, thick] (B) at (1,2) {$v_2$};
+            \node[circle, draw, thick] (C) at (3,2) {$v_3$};
+            \node[circle, draw, thick] (E) at (-1,0) {$v_5$};
+
+            \draw[line width=1pt,->] (B) -- (C);
+            \draw[line width=1pt,->] (C) -- (E);
+
+        \end{tikzpicture}
+
+    \end{center}
+
+    مراحل فوق مجدد تکرار شده و به دنبال راسی که درجه ورودی آن برابر صفر می‌باشد می‌گردیم. در گراف نهایی راس $v_2$ دارای این ویژگی می‌باشد. بنابراین این راس را همانند مراحل قبلی به مجموعه ترتیب توپولوژیک اضافه می‌کنیم.
+
+    \begin{center}
+        
+        $Topological \hspace{3pt} Order = \{v_4, v_1, v_2\}$
+
+    \end{center}
+
+    اکنون با اضافه کردن راس مورد نظر به مجموعه ترتیب توپولوژیک، راس را از گراف حذف می‌کنیم. بنابراین اکنون باید راس $v_2$ را با تمام یال‌های متصل به آن حذف کنیم.
+
+    \begin{center}
+        
+        \begin{tikzpicture}
+            
+            \node[circle, draw, thick] (C) at (3,2) {$v_3$};
+            \node[circle, draw, thick] (E) at (-1,0) {$v_5$};
+
+            \draw[line width=1pt,->] (C) -- (E);
+
+        \end{tikzpicture}
+
+    \end{center} 
+
+    مجدد باید همان مراحل قبلی تکرار شود و راسی که درجه ورودی آن برابر صفر است را شناسایی کرد، بنابراین راس $v_3$ در گراف فعلی که درجه ورودی آن برابر صفر را  انتخاب و به مجموعه ترتیب توپولوژیک اضافه می‌‌کنیم.
+
+    \begin{center}
+        
+        $Topological \hspace{3pt} Order = \{v_4, v_1, v_2, v_3\}$
+
+    \end{center}
+
+    اکنون با اضافه شدن راس مورد نظر یعنی راس $v_3$ به مجموعه ترتیب توپولوژیک باید در این گام آن راس را از گراف فعلی حذف کرد و به واسته آن تمام یال‌های مرتبط با آن را نیز از گراف فعلی حذف کرد.
+
+    \begin{center}
+        
+        \begin{tikzpicture}
+            
+            \node[circle, draw, thick] (E) at (-1,0) {$v_5$};
+        
+        \end{tikzpicture}
+
+    \end{center}
+
+    حال بر طبق روال قبلی راسی که درجه ورودی آن برابر صفر است را شناسایی کرده و به مجموعه ترتیب توپولوژیک اضافه می‌کنیم. در اینجا راسی که دارای درجه ورودی صفر می‌باشد راس $v_5$ است.
+
+    \begin{center}
+        
+        $Topological \hspace{3pt} Order = \{v_4, v_1, v_2, v_3, v_5\}$
+
+    \end{center}
+
+    از آنجایی که گراف ما با حذف راس شناسایی شده به گراف خالی می‌رسد، بنابراین مراحل به اتمام رسیده و مجموعه ترتیب توپولوژیک ما به صورت زیر می‌باشد:
+
+    \begin{center}
+        
+        $Topological \hspace{3pt} Order = \{v_4, v_1, v_2, v_3, v_5\}$
+
+    \end{center}
 
     \noindent\hrulefill
 
