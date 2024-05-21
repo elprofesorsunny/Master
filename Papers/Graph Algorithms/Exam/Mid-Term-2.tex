@@ -3,6 +3,7 @@
 \usepackage{tikz}
 \usepackage{dblfnote}
 \usepackage{lipsum}
+\usepackage{tabularx}
 
 \usepackage{geometry}
 \geometry{
@@ -146,6 +147,156 @@
             \end{tikzpicture}
 
         \end{center}
+
+        \item مجموعه برش\footnote{\hspace{2pt}Cut-Set}: یک مجموعه برش، یک مجموعه برش حداقلی\footnote{\hspace{2pt}Cut-Set Minimal} نیز می‌باشد؛ یعنی حذف این مجموعه از یال‌ها باعث قطع شدن گراف و جدا شدن آن به دو یا چندین اجزای متصل می‌شود.
+        
+        یک مجموعه برش در گراف $G$ مجموعه‌ای از یال‌ها $F$ است که با حذف آن‌ها گراف قطع می‌شود، به شرطی که حذف هیچ زیرمجموعه مناسب\footnote{\hspace{2pt}Subset Proper} از $F$ نتواند گراف را قطع کند. این مجموعه برش حداقلی یا برش ساده\footnote{\hspace{2pt}Cut-Set Simple} نیز نامیده می‌شود. همچنین به عنوان برش مناسب یا چرخه مشترک\footnote{\hspace{2pt}Cocycle} نیز شناخته می‌شود.
+
+        \item گراف جدایی‌پذیر\footnote{\hspace{2pt}Graph Separable}: گراف جدایی‌پذیر، به گرافی اشاره دارد که با حذف یک یا چند راس یا یال خاص، به دو یا چندین بخش مجزا تقسیم می‌شود. این گراف‌ها معمولاً دارای رئوسی هستند که به عنوان نقاط بحرانی یا برش راس عمل می‌کنند و با حذف آن‌ها، ساختار گراف به طور قابل توجهی تغییر می‌کند.
+
+        \begin{center}
+            
+            \begin{tikzpicture}
+                
+                \node[circle, draw, thick] (A) at (0,0) {};
+                \node[circle, draw, thick] (B) at (1.5,2) {};
+                \node[circle, draw, thick] (C) at (3,0) {};
+                \node[circle, draw, thick] (D) at (4.5,2) {};
+                \node[circle, draw, thick] (E) at (4.5,-2) {};
+                \node[circle, draw, thick] (F) at (6,0) {};
+                
+                \draw[line width=1pt] (A) -- (B);
+                \draw[line width=1pt] (B) -- (C);
+                \draw[line width=1pt] (D) -- (C);
+                \draw[line width=1pt] (E) -- (C);
+                \draw[line width=1pt] (D) -- (F);
+                \draw[line width=1pt] (E) -- (F);
+
+            \end{tikzpicture}
+
+        \end{center}
+
+        \item گراف جدایی‌ناپذیر\footnote{\hspace{2pt}Graph Non-Separable}: گراف جدایی‌ناپذیر به گرافی گفته می‌شود که نمی‌توان آن را با حذف یک راس یا یال به دو یا چندین بخش مجزا تقسیم کرد. به عبارت دیگر، حذف هیچ راسی یا یالی باعث نمی‌شود که گراف قطع شود. این گراف‌ها ساختاری قوی و متصل دارند و نقاط بحرانی یا برش راس که باعث جداسازی گراف شوند، ندارند.
+
+        \begin{center}
+            
+            \begin{tikzpicture}
+                
+                \node[circle, draw, thick] (A) at (0,0) {};
+                \node[circle, draw, thick] (B) at (1.5,2) {};
+                \node[circle, draw, thick] (C) at (1.5,-2) {};
+                \node[circle, draw, thick] (D) at (3,0) {};
+                \node[circle, draw, thick] (E) at (4.5,2) {};
+                \node[circle, draw, thick] (F) at (4.5,-2) {};
+                \node[circle, draw, thick] (G) at (6,0) {};
+                
+                \draw[line width=1pt] (A) -- (B);
+                \draw[line width=1pt] (A) -- (C);
+                \draw[line width=1pt] (B) -- (D);
+                \draw[line width=1pt] (C) -- (D);
+                \draw[line width=1pt] (E) -- (D);
+                \draw[line width=1pt] (F) -- (D);
+                \draw[line width=1pt] (E) -- (G);
+                \draw[line width=1pt] (F) -- (G);
+                \draw[line width=1pt] (B) -- (E);
+                \draw[line width=1pt] (C) -- (F);
+
+            \end{tikzpicture}
+
+        \end{center}
+
+        \item بلوک\footnote{\hspace{2pt}Block}: بلوک یک زیرگراف جدایی‌ناپذیر از یک گراف جدایی‌پذیر $G$ است. به عبارت دیگر، بلوک یک زیرگراف متصل است که با حذف هیچ یک از رئوس آن (همراه با یال‌های متصل به آن راس) به بخش‌های مجزا تقسیم نمی‌شود.
+
+        \begin{center}
+            
+            \begin{tikzpicture}
+                
+                \node[circle, draw, thick] (A) at (0,0) {};
+                \node[circle, draw, thick] (B) at (1.5,1.5) {};
+                \node[circle, draw, thick] (C) at (1.5,-1.5) {};
+                \node[circle, draw, thick] (D) at (3,0) {};
+
+                \draw[line width=1pt] (A) -- (B);
+                \draw[line width=1pt] (A) -- (C);
+                \draw[line width=1pt] (B) -- (D);
+                \draw[line width=1pt] (C) -- (D);
+                
+                \node[circle, draw, thick] (A) at (5,-1) {};
+                \node[circle, draw, thick] (B) at (6,1.2) {};
+
+                \draw[line width=1pt] (A) -- (B);
+
+                \node[circle, draw, thick] (A) at (9.5,-1.2) {};
+                \node[circle, draw, thick] (B) at (8,1) {};
+
+                \draw[line width=1pt] (A) -- (B);                
+
+            \end{tikzpicture}
+
+        \end{center}
+
+        \item اتصال یالی\footnote{\hspace{2pt}Connectivity Edge}: مفهوم اتصال یالی در گراف به حداقل تعداد یال‌هایی که باید از گراف حذف شوند تا گراف به دو یا چندین اجزای متصل جداگانه تقسیم شود، اشاره دارد. به عبارت دیگر، اتصال یالی گراف نشان‌دهنده‌ میزان پایداری گراف در برابر حذف یال‌ها است.
+
+        به عبارت دیگر، اتصال یالی حداقل تعداد یال‌هایی است که باید حذف شوند تا گراف به یک گراف قطع تبدیل شود. این مقدار به عنوان $\lambda (G)$ نشان داده می‌شود.
+
+        \item اتصال راسی\footnote{\hspace{2pt}Connectivity Vertex}: مفهوم اتصال راسی در گراف به حداقل تعداد رئوسی که باید از گراف حذف شوند تا گراف به دو یا چندین بخش مجزا تقسیم شود، اشاره دارد. این مفهوم میزان پایداری گراف را در برابر حذف رئوس نشان می‌دهد.
+        
+        به عبارت دیگر، اتصال راسی حداقل تعداد رئوسی است که باید حذف شوند تا گراف به یک گراف قطع تبدیل شود. این مقدار به عنوان $\kappa (G)$ نشان داده می‌شود.
+
+        \item جستجوی عمق اول\footnote{\hspace{2pt}Search First Depth (DFS)}: جستجوی عمق‌ اول یک الگوریتم پیمایش یا جستجو در ساختارهای داده‌ای مانند گراف‌ها و درخت‌ها است. این الگوریتم به طور عمیق در ساختار حرکت می‌کند و تا زمانی که به یک رأس یا گره بدون فرزند نرسد، به پیشروی ادامه می‌دهد. سپس به عقب برگشته و به دنبال مسیرهای دیگر می‌گردد.
+        
+        به عنوان مثال می‌نوان گراف زیر را در نظر گرفت و با توجه به گراف زیر الگوریتم جستجوی عمق اول را برای آن به صورت زیر نوشت.
+
+        \begin{center}
+            
+            \begin{tikzpicture}
+                
+                \node[circle, draw, thick] (1) at (0,0) {1};
+                \node[circle, draw, thick] (2) at (1.5,2) {2};
+                \node[circle, draw, thick] (3) at (4.5,-1) {3};
+                \node[circle, draw, thick] (4) at (1.5,-1) {4};
+                \node[circle, draw, thick] (5) at (3,1) {5};
+                \node[circle, draw, thick] (6) at (3,0) {6};
+                \node[circle, draw, thick] (7) at (4.5,1) {7};
+                \node[circle, draw, thick] (8) at (6,0) {8};
+
+                \draw[line width=1] (1) -- (2);
+                \draw[line width=1] (1) -- (5);
+                \draw[line width=1] (1) -- (6);
+                \draw[line width=1] (1) -- (4);
+                \draw[line width=1] (5) -- (2);
+                \draw[line width=1] (5) -- (6);
+                \draw[line width=1] (4) -- (6);
+                \draw[line width=1] (4) -- (3);
+                \draw[line width=1] (8) -- (3);
+                \draw[line width=1] (7) -- (3);
+
+            \end{tikzpicture}
+
+        \end{center}
+
+        \begin{table}
+            
+            \centering
+            \begin{tabularx}{\textwidth}{ X X }
+                
+                لیست & دیده شده \\
+
+                \hline
+
+                سلام \\
+
+            \end{tabularx}
+
+        \end{table}
+
+        \item جستجوی عرض اول\footnote{\hspace{2pt}Search First Breadth (BFS)}: جستجوی عرض‌ اول یک الگوریتم پیمایش یا جستجو در ساختارهای داده‌ای مانند گراف‌ها و درخت‌ها است. این الگوریتم به جای پیمایش عمقی، به پیمایش سطحی می‌پردازد، به این معنا که ابتدا همه رئوس هم‌سطح را پیمایش می‌کند و سپس به سطح بعدی می‌رود.
+
+        \item 
+
+        \item 
+
+        \item 
 
         \item 
 
