@@ -4,6 +4,8 @@
 \usepackage{dblfnote}
 \usepackage{lipsum}
 \usepackage{tabularx}
+\usepackage{graphicx}
+\usepackage{multirow}
 
 \usepackage{geometry}
 \geometry{
@@ -245,60 +247,202 @@
 
         \item جستجوی عمق اول\footnote{\hspace{2pt}Search First Depth (DFS)}: جستجوی عمق‌ اول یک الگوریتم پیمایش یا جستجو در ساختارهای داده‌ای مانند گراف‌ها و درخت‌ها است. این الگوریتم به طور عمیق در ساختار حرکت می‌کند و تا زمانی که به یک رأس یا گره بدون فرزند نرسد، به پیشروی ادامه می‌دهد. سپس به عقب برگشته و به دنبال مسیرهای دیگر می‌گردد.
         
-        به عنوان مثال می‌نوان گراف زیر را در نظر گرفت و با توجه به گراف زیر الگوریتم جستجوی عمق اول را برای آن به صورت زیر نوشت.
-
-        \begin{center}
-            
-            \begin{tikzpicture}
-                
-                \node[circle, draw, thick] (1) at (0,0) {1};
-                \node[circle, draw, thick] (2) at (1.5,2) {2};
-                \node[circle, draw, thick] (3) at (4.5,-1) {3};
-                \node[circle, draw, thick] (4) at (1.5,-1) {4};
-                \node[circle, draw, thick] (5) at (3,1) {5};
-                \node[circle, draw, thick] (6) at (3,0) {6};
-                \node[circle, draw, thick] (7) at (4.5,1) {7};
-                \node[circle, draw, thick] (8) at (6,0) {8};
-
-                \draw[line width=1] (1) -- (2);
-                \draw[line width=1] (1) -- (5);
-                \draw[line width=1] (1) -- (6);
-                \draw[line width=1] (1) -- (4);
-                \draw[line width=1] (5) -- (2);
-                \draw[line width=1] (5) -- (6);
-                \draw[line width=1] (4) -- (6);
-                \draw[line width=1] (4) -- (3);
-                \draw[line width=1] (8) -- (3);
-                \draw[line width=1] (7) -- (3);
-
-            \end{tikzpicture}
-
-        \end{center}
+        به عنوان مثال می‌توان گراف زیر را در نظر گرفت و با توجه به گراف زیر الگوریتم جستجوی عمق اول را برای آن به صورت زیر نوشت.
 
         \begin{table}
             
             \centering
-            \begin{tabularx}{\textwidth}{ X X }
+            \begin{tabular}{ c c }
                 
-                لیست & دیده شده \\
+                \begin{tabular}{ r c }
 
-                \hline
+                    لیست & دیده شده \\
 
-                سلام \\
+                    \hline
+                
+                    \{\textcolor{blue}{2}\} & 2 \\
+                    \{2, \textcolor{blue}{1}\} & 1 \\
+                    \{2, 1, \textcolor{blue}{4}\} & 4 \\
+                    \{2, 1, 4, \textcolor{blue}{3}\} & 3 \\
+                    \{2, 1, 4, 3, \textcolor{blue}{7}\} & 7 \\
+                    \{2, 1, 4, \textcolor{blue}{3}\} &  \\
+                    \{2, 1, 4, 3, \textcolor{blue}{8}\} & 8 \\
+                    \{2, 1, 4, \textcolor{blue}{3}\} &  \\
+                    \{2, 1, \textcolor{blue}{4}\} &  \\
+                    \{2, 1, 4, \textcolor{blue}{6}\} & 6 \\
+                    \{2, 1, 4, 6, \textcolor{blue}{5}\} & 5 \\
+                    \{2, 1, 4, \textcolor{blue}{6}\} &  \\
+                    \{2, 1, \textcolor{blue}{4}\} &  \\
+                    \{2, \textcolor{blue}{1}\} &  \\
+                    \{\textcolor{blue}{2}\} &  \\
+                    \{\} &  \\
+                
+                \end{tabular}
 
-            \end{tabularx}
+                &
+
+                \begin{tabular}{ c c }
+                    
+                    \begin{tikzpicture}[scale=0.8]
+                
+                        \node[circle, draw, thick] (1) at (0,0) {1};
+                        \node[circle, draw, thick] (2) at (1.5,2) {2};
+                        \node[circle, draw, thick] (3) at (4.5,-1) {3};
+                        \node[circle, draw, thick] (4) at (1.5,-1) {4};
+                        \node[circle, draw, thick] (5) at (3,1.4) {5};
+                        \node[circle, draw, thick] (6) at (3,0) {6};
+                        \node[circle, draw, thick] (7) at (4.5,1.4) {7};
+                        \node[circle, draw, thick] (8) at (6,0) {8};
+        
+                        \draw[line width=1] (1) -- (2);
+                        \draw[line width=1] (1) -- (5);
+                        \draw[line width=1] (1) -- (6);
+                        \draw[line width=1] (1) -- (4);
+                        \draw[line width=1] (5) -- (2);
+                        \draw[line width=1] (5) -- (6);
+                        \draw[line width=1] (4) -- (6);
+                        \draw[line width=1] (4) -- (3);
+                        \draw[line width=1] (8) -- (3);
+                        \draw[line width=1] (7) -- (3);
+        
+                    \end{tikzpicture}
+
+                    &
+
+                    \begin{tikzpicture}[scale=0.8]
+                
+                        \node[circle, draw, thick] (1) at (0,0) {1};
+                        \node[circle, draw, thick] (2) at (1.5,2) {2};
+                        \node[circle, draw, thick] (3) at (4.5,-1) {3};
+                        \node[circle, draw, thick] (4) at (1.5,-1) {4};
+                        \node[circle, draw, thick] (5) at (3,1.4) {5};
+                        \node[circle, draw, thick] (6) at (3,0) {6};
+                        \node[circle, draw, thick] (7) at (4.5,1.4) {7};
+                        \node[circle, draw, thick] (8) at (6,0) {8};
+        
+                        \draw[line width=1] (1) -- (2);
+                        \draw[line width=1] (1) -- (5);
+                        \draw[line width=1] (1) -- (6);
+                        \draw[line width=1] (1) -- (4);
+                        \draw[line width=1] (5) -- (2);
+                        \draw[line width=1] (5) -- (6);
+                        \draw[line width=1] (4) -- (6);
+                        \draw[line width=1] (4) -- (3);
+                        \draw[line width=1] (8) -- (3);
+                        \draw[line width=1] (7) -- (3);
+        
+                    \end{tikzpicture} \\
+
+                    \begin{tikzpicture}[scale=0.8]
+                
+                        \node[circle, draw, thick] (1) at (0,0) {1};
+                        \node[circle, draw, thick] (2) at (1.5,2) {2};
+                        \node[circle, draw, thick] (3) at (4.5,-1) {3};
+                        \node[circle, draw, thick] (4) at (1.5,-1) {4};
+                        \node[circle, draw, thick] (5) at (3,1.4) {5};
+                        \node[circle, draw, thick] (6) at (3,0) {6};
+                        \node[circle, draw, thick] (7) at (4.5,1.4) {7};
+                        \node[circle, draw, thick] (8) at (6,0) {8};
+        
+                        \draw[line width=1] (1) -- (2);
+                        \draw[line width=1] (1) -- (5);
+                        \draw[line width=1] (1) -- (6);
+                        \draw[line width=1] (1) -- (4);
+                        \draw[line width=1] (5) -- (2);
+                        \draw[line width=1] (5) -- (6);
+                        \draw[line width=1] (4) -- (6);
+                        \draw[line width=1] (4) -- (3);
+                        \draw[line width=1] (8) -- (3);
+                        \draw[line width=1] (7) -- (3);
+        
+                    \end{tikzpicture}
+
+                    &
+
+                    \begin{tikzpicture}[scale=0.8]
+                
+                        \node[circle, draw, thick] (1) at (0,0) {1};
+                        \node[circle, draw, thick] (2) at (1.5,2) {2};
+                        \node[circle, draw, thick] (3) at (4.5,-1) {3};
+                        \node[circle, draw, thick] (4) at (1.5,-1) {4};
+                        \node[circle, draw, thick] (5) at (3,1.4) {5};
+                        \node[circle, draw, thick] (6) at (3,0) {6};
+                        \node[circle, draw, thick] (7) at (4.5,1.4) {7};
+                        \node[circle, draw, thick] (8) at (6,0) {8};
+        
+                        \draw[line width=1] (1) -- (2);
+                        \draw[line width=1] (1) -- (5);
+                        \draw[line width=1] (1) -- (6);
+                        \draw[line width=1] (1) -- (4);
+                        \draw[line width=1] (5) -- (2);
+                        \draw[line width=1] (5) -- (6);
+                        \draw[line width=1] (4) -- (6);
+                        \draw[line width=1] (4) -- (3);
+                        \draw[line width=1] (8) -- (3);
+                        \draw[line width=1] (7) -- (3);
+        
+                    \end{tikzpicture} \\
+
+                    \begin{tikzpicture}[scale=0.8]
+                
+                        \node[circle, draw, thick] (1) at (0,0) {1};
+                        \node[circle, draw, thick] (2) at (1.5,2) {2};
+                        \node[circle, draw, thick] (3) at (4.5,-1) {3};
+                        \node[circle, draw, thick] (4) at (1.5,-1) {4};
+                        \node[circle, draw, thick] (5) at (3,1.4) {5};
+                        \node[circle, draw, thick] (6) at (3,0) {6};
+                        \node[circle, draw, thick] (7) at (4.5,1.4) {7};
+                        \node[circle, draw, thick] (8) at (6,0) {8};
+        
+                        \draw[line width=1] (1) -- (2);
+                        \draw[line width=1] (1) -- (5);
+                        \draw[line width=1] (1) -- (6);
+                        \draw[line width=1] (1) -- (4);
+                        \draw[line width=1] (5) -- (2);
+                        \draw[line width=1] (5) -- (6);
+                        \draw[line width=1] (4) -- (6);
+                        \draw[line width=1] (4) -- (3);
+                        \draw[line width=1] (8) -- (3);
+                        \draw[line width=1] (7) -- (3);
+        
+                    \end{tikzpicture}
+
+                    &
+
+                    \begin{tikzpicture}[scale=0.8]
+                
+                        \node[circle, draw, thick] (1) at (0,0) {1};
+                        \node[circle, draw, thick] (2) at (1.5,2) {2};
+                        \node[circle, draw, thick] (3) at (4.5,-1) {3};
+                        \node[circle, draw, thick] (4) at (1.5,-1) {4};
+                        \node[circle, draw, thick] (5) at (3,1.4) {5};
+                        \node[circle, draw, thick] (6) at (3,0) {6};
+                        \node[circle, draw, thick] (7) at (4.5,1.4) {7};
+                        \node[circle, draw, thick] (8) at (6,0) {8};
+        
+                        \draw[line width=1] (1) -- (2);
+                        \draw[line width=1] (1) -- (5);
+                        \draw[line width=1] (1) -- (6);
+                        \draw[line width=1] (1) -- (4);
+                        \draw[line width=1] (5) -- (2);
+                        \draw[line width=1] (5) -- (6);
+                        \draw[line width=1] (4) -- (6);
+                        \draw[line width=1] (4) -- (3);
+                        \draw[line width=1] (8) -- (3);
+                        \draw[line width=1] (7) -- (3);
+        
+                    \end{tikzpicture} \\
+
+                \end{tabular} \\
+
+            \end{tabular}
+            %\caption{جستجوی عمق اول}
 
         \end{table}
 
         \item جستجوی عرض اول\footnote{\hspace{2pt}Search First Breadth (BFS)}: جستجوی عرض‌ اول یک الگوریتم پیمایش یا جستجو در ساختارهای داده‌ای مانند گراف‌ها و درخت‌ها است. این الگوریتم به جای پیمایش عمقی، به پیمایش سطحی می‌پردازد، به این معنا که ابتدا همه رئوس هم‌سطح را پیمایش می‌کند و سپس به سطح بعدی می‌رود.
 
-        \item 
 
-        \item 
-
-        \item 
-
-        \item 
 
     \end{itemize}
 
