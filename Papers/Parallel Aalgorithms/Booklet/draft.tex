@@ -1,0 +1,54 @@
+\documentclass[a4paper,10pt]{article}
+
+\usepackage{geometry}
+\geometry{top=2cm,right=1.5cm,bottom=2cm,left=1.5cm}
+
+\usepackage{xepersian}
+\settextfont{Vazirmatn-Regular.ttf}
+
+\linespread{1.5}
+
+\begin{document}
+
+    برای اجرای دستورات روی پردازنده‌های موازی نیازمند الگوریتم‌های موازی هستیم.
+
+    چند مدل به عنوان دسته بندی برای الگوریتم‌های موازی و موازی‌سازی داریم که به شرح زیر است:
+
+    \begin{itemize}
+        
+        \item یک دستورالعمل، یک داده (SISD): 
+        \item چند دستورالعمل، یک داده (MISD):
+        \item یک دستورالعمل، چند داده (SIMD): در این حالت زمان اجرا سنکرون و همگام است و علت این کار این است که چون یک دستورالعمل داریم پس همه پردازش‌ها با همدیگر تمام می‌شوند.
+        
+        \begin{itemize}
+            
+            \item shared-memory: اگر در این حال پردازنده A بخواهد داده‌ای را به پردازنده B ارسال کند، آن داده را در یک فضای اشتراکی می‌گذارند. بر اساس نحوه قرارگیری داده در حافظه، 4 دسته‌بندی مطرح می‌شود:
+            
+            \begin{itemize}
+                
+                \item EREW
+                \item CREW
+                \item ERCW
+                \item CRCW: در این مورد چون خواندن و نوشتن به صورت همزمان در حال انجام است، پس تضاد یا Conflict ایجاد می‌شود و برای این موضوع سیاست‌هایی در نظر گرفته شده است که در مقالات متفاوتی به آن‌ها پرداخته شده است.
+
+            \end{itemize}
+
+            \item interconnection network
+            
+            \begin{itemize}
+                
+                \item Dynamic
+                \item Static 
+
+            \end{itemize}
+
+        \end{itemize}
+        
+
+        \item چند دستورالعمل، چند داده (MIMD):
+        
+    \end{itemize}
+
+
+
+\end{document}
