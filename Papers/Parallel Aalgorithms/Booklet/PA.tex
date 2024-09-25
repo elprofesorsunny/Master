@@ -1,5 +1,13 @@
 \documentclass[a4paper, 10pt]{book}
 
+\usepackage{wrapfig}
+
+\usepackage{graphicx}
+\usepackage{float}
+
+\usepackage{tikz}
+\usepackage{amsmath}
+
 \usepackage{fontspec} % --fontspec-- package to use other fonts
 \setmainfont{Vazirmatn-Regular.ttf} 
 \newfontfamily\bold{Vazirmatn-Bold.ttf}
@@ -15,7 +23,7 @@
 \author{Professor\\{\bold Dr. Masoumeh Damroudi}}
 \date{Author\\{\bold Mohammad Khorshidi}}
 
-\linespread{1.2}
+\linespread{1.3}
 
 \begin{document}
 
@@ -61,90 +69,134 @@
 
         In this lecture note, we will explore fundamental concepts of parallel processing, computational models such as the PRAM model, and interconnection structures like network links. We will also delve into the principles of designing and analyzing parallel algorithms, covering key metrics such as performance, speedup, and scalability. Our goal is to provide a comprehensive understanding of the challenges and opportunities in the field of parallel algorithms.
 
-        Parallel algorithms play a crucial role in improving the performance of complex and resource-intensive computations. The primary goal of parallel algorithms is to divide a large problem into smaller, independent sub-problems, which can be solved simultaneously by multiple processors. This technique is essential in multi-core and distributed computing environments such as supercomputers and large computing clusters. Below are some key concepts and approaches that are foundational in the field of parallel algorithms:
+        Parallel algorithms play a crucial role in improving the performance of complex and resource-intensive computations. The primary goal of parallel algorithms is to divide a large problem into smaller, independent sub-problems, which can be solved simultaneously by multiple processors. This technique is essential in multi-core and distributed computing environments such as supercomputers and large computing clusters.
 
-        \begin{enumerate}
-            
-            \item {\bold Parallel Computational Models}
-            
-                To design and analyze parallel algorithms, various computational models are employed, each defining how processors interact and how instructions are executed in parallel.
+        The need for parallel computation arises from the requirement to process large amounts of data or perform complex computations in a reasonable amount of time. A parallel computer, which consists of multiple processing units or processors, enables this by dividing a large problem into smaller sub-problems. Each of these sub-problems is solved independently and simultaneously by separate processors. The results are then combined to solve the original problem more efficiently.
 
-                \begin{itemize}
+        This approach, known as parallel computing, leverages the power of multiple processors to work on different parts of a problem at the same time. By doing so, it accelerates the overall computation and makes optimal use of hardware resources. Algorithms that are specifically designed to utilize parallel computing, called parallel algorithms, are key to solving complex problems faster and more efficiently by running them on parallel computer architectures.
+
+        \section{Computational Models}
+
+            In any computing system, whether sequential or parallel, the instructions are executed based on the flow of data. The execution flow dictates the sequence in which the tasks are carried out by the computer and what needs to be done at each stage of execution.
+
+            The flow of data through the instructions influences how they operate. Understanding the correct computational model is crucial for designing parallel algorithms. These models determine the architecture and behavior of the system, impacting the performance and efficiency of parallel computation.
+
+            Flynn, in 1966, introduced a taxonomy of computer architectures based on instruction and data streams. The four major classes of this classification are:
+
+            \begin{itemize}
+                
+                \item {\bold SISD (Single Instruction, Single Data):} A single instruction is executed on a single data stream.
+                
+                \item {\bold MISD (Multiple Instruction, Single Data):} Multiple instructions are executed on a single data stream.
+
+                \item {\bold SIMD (Single Instruction, Multiple Data):} A single instruction is executed on multiple data streams simultaneously.
+
+                \item {\bold MIMD (Multiple Instruction, Multiple Data):} Multiple instructions are executed on multiple data streams simultaneously.
+
+            \end{itemize}
+
+            \begin{figure}[H]
+
+                \centering
+                
+                \begin{tikzpicture}
+                    % Draw the grid lines
+                    \draw[thick] (0,0) rectangle (8,5);
+                    \draw[thick] (0,2.5) -- (8,2.5);
+                    \draw[thick] (4,0) -- (4,5);
                     
-                    \item {\bold PRAM Model (Parallel Random Access Machine):} One of the most widely used models for parallel computing. In PRAM, all processors have simultaneous access to a shared memory. This model is further divided into several subclasses based on the rules of access to shared memory:
+                    % Add labels for SISD, SIMD, MISD, MIMD
+                    \node at (2,4.5) {{\bold SISD}};
+                    \node at (6,4.5) {{\bold MISD}};
+                    \node at (2,2) {{\bold SIMD}};
+                    \node at (6,2) {{\bold MIMD}};
                     
-                    \begin{itemize}
+                    % Add descriptions for each category
+                    \node at (2,3.8) {traditional von};
+                    \node at (2,3.4) {Neumann single};
+                    \node at (2,3) {CPU computer};
+                    
+                    \node at (6,3.8) {May be pipelined};
+                    \node at (6,3.4) {Computers};
+                    
+                    \node at (2,1.3) {Vector processors};
+                    \node at (2,0.9) {fine grained data};
+                    \node at (2,0.5) {Parallel computers};
+                    
+                    \node at (6,1.3) {Multi computers};
+                    \node at (6,0.9) {Multiprocessors};
+                    
+                    % Label axes
+                    \node[rotate=90] at (-1,2.5) {Data Streams};
+                    \node[rotate=90] at (-0.4,3.7) {one};
+                    \node[rotate=90] at (-0.4,1.3) {many};
+                    
+                    \node at (2,5.4) {one};
+                    \node at (6,5.4) {many};
+                    \node at (4,5.9) {Instruction Streams};
+                    
+                \end{tikzpicture}
+                
+                \caption{A comparison between SISD, MISD, SIMD, and MIMD architectures}
+            
+            \end{figure}
+
+            \subsection{SISD Architecture: Time Complexity and Characteristics}
+
+            \begin{wrapfigure}{r}{0.5\textwidth}
+                    
+                \centering
+
+                \begin{tikzpicture}
+                    
+                        % Data Pool
+                        \node[draw, minimum width=3cm, minimum height=1cm, rotate=90]  (data) at (0.25,0) {Data Pool};
                         
-                        \item {\bold EREW (Exclusive Read, Exclusive Write):} Only one processor can read from or write to a memory cell at a time.
+                        % Instruction Pool
+                        \node[draw, minimum width=3.5cm, minimum height=1cm] (instruction) at (3,2.5) {Instruction Pool};
                         
-                        \item {\bold CREW (Concurrent Read, Exclusive Write):} Multiple processors can read from the same memory location, but only one can write at a time.
-
-                        \item {\bold ERCW (Exclusive Read, Concurrent Write):} Multiple processors can write to the same memory location, but reading is exclusive.
-
-                        \item {\bold CRCW (Concurrent Read, Concurrent Write):} Multiple processors can both read from and write to the same memory location simultaneously.
-
-                    \end{itemize}
-
-                    \item {\bold Interconnection Networks:} For systems where processors have independent memory and communicate via a network, interconnection structures like Mesh, Hypercube, and Ring are used. These networks define how data is transmitted between processors in parallel systems.
-
-                \end{itemize}
-
-            \item {\bold Parallel Algorithm Design and Optimization}
-            
-                The design of parallel algorithms involves breaking down a problem into sub-problems that can be executed independently. Some key concepts related to the efficiency and performance of parallel algorithms include:
-
-                \begin{itemize}
-                    
-                    \item {\bold Speedup:} This is a measure of how much faster a parallel algorithm runs compared to its sequential counterpart. Ideally, the speedup increases proportionally with the number of processors used. However, due to factors such as communication overhead and non-parallelizable sections of code, perfect speedup is often unattainable.
-
-                    \item {\bold Efficiency:} Efficiency is a measure of how well a parallel system utilizes its resources. It is the ratio of speedup to the number of processors. A parallel algorithm is considered efficient if it achieves high speedup with a minimal number of processors.
-
-                    \item {\bold Scalability:} Scalability refers to the ability of a parallel algorithm to maintain its performance improvement as more processors are added. A scalable algorithm should continue to perform efficiently as the problem size and number of processors increase.
-
-                \end{itemize}
-            
-            \item {\bold Challenges in Parallelism}
-            
-                One of the main challenges in parallel computing is managing dependencies between tasks, which can limit the degree of parallelism:
-
-                \begin{itemize}
-                    
-                    \item {\bold Data Dependency:} This occurs when one task relies on the output of another. There are three types:
-                    
-                    \begin{itemize}
+                        % Processor
+                        \node[draw, minimum width=3.5cm, minimum height=3cm] (processor) at (3,0) {{\bold Processor}};
                         
-                        \item {\bold Flow Dependency (RAW - Read After Write):} One task needs to read a variable after another task has written to it.
-                        
-                        \item {\bold Anti Dependency (WAR - Write After Read):} A task must write to a variable only after another task has read it.
+                        % Arrows
+                        \draw[thick, ->] (data.south) -- (processor.west);
+                        \draw[thick, ->] (instruction.south) -- (processor.north);
 
-                        \item {\bold Output Dependency (WAW - Write After Write):} Two tasks try to write to the same variable simultaneously.
+                \end{tikzpicture}
 
-                    \end{itemize}
-                    
-                    \item {\bold Control Dependency:} This occurs when the execution of a task depends on a control flow decision, such as an if-then-else structure or a loop.
+                \caption{A conceptual diagram of SISD architecture.}
 
-                    \item {\bold Resource Dependency:} Occurs when multiple tasks require access to the same resource, such as memory or a computational unit, simultaneously.
+            \end{wrapfigure}
 
-                \end{itemize}
+                The Single Instruction Single Data (SISD) architecture, introduced by John von Neumann in the late 1940s, processes one instruction at a time over a single data stream. This sequential nature means it doesn't support parallel processing, requiring only one processor to execute the tasks.
 
-            \item {\bold Applications of Parallel Algorithms}
-            
-                Parallel algorithms have broad applications across numerous fields, including:
+                An SISD computing system is a uniprocessor machine which is capable of executing a single instruction, operating on a single data stream. In SISD, machine instructions are processed in a sequential manner and computers adopting this model are popularly called sequential computers. Most conventional computers have SISD architecture. All the instructions and data to be processed have to be stored in primary memory.
 
-                \begin{itemize}
-                    
-                    \item {\bold Scientific and Engineering Computations:} These include solving complex mathematical equations, simulations of physical processes, and large-scale statistical computations.
-
-                    \item {\bold Big Data Processing:} Parallelism is essential for handling vast amounts of data in distributed systems, where tasks such as sorting, filtering, and data analysis are executed concurrently.
-
-                    \item {\bold Image and Signal Processing:} Parallel algorithms are often employed in matrix operations, digital filters, and image manipulation tasks.
-
-                    \item {\bold Artificial Intelligence and Deep Learning:} Many AI algorithms, particularly in neural networks and machine learning, leverage parallelism to process large datasets and improve training efficiency.
-
-                \end{itemize}
+                In the SISD model, the algorithm works in a serial fashion. For example, to sum a sequence of $n$ numbers, the algorithm accesses the memory $n$ times and performs $n−1$ additions. The time complexity for this approach can be expressed as:
         
-        \end{enumerate}
+                $$O(n)$$
 
-        
+                Where:
+
+                \begin{itemize}
+                    
+                    \item $n$: The number of elements to process.
+
+                    \item $O(n)$: Reflects that the algorithm's running time scales linearly with the size of the input.
+
+                \end{itemize}
+
+                In this architecture, there is no room for parallelism, and each operation occurs sequentially, requiring every data element to be processed one at a time. For a sum operation on $n$ numbers:
+
+                \begin{itemize}
+
+                    \item Memory accesses: $n$ memory fetches.
+                    \item Additions: $n−1$ addition operations.
+
+                \end{itemize}
+
+                Thus, the total computational complexity is linear, i.e., $O(n)$, representing the number of accesses and operations required to complete the task.
+
+                For this type of architecture, the performance is highly dependent on the efficiency of the processor and memory access speed, as there is no way to split the workload across multiple processors.
 
 \end{document}
