@@ -1,5 +1,7 @@
 \documentclass[a4paper, 10pt]{book}
 
+\usepackage{tcolorbox}
+
 \usepackage{wrapfig}
 
 \usepackage{graphicx}
@@ -141,32 +143,32 @@
             
             \end{figure}
 
-            \subsection{SISD Architecture: Time Complexity and Characteristics}
+            \subsection{SISD Architecture}
 
-            \begin{wrapfigure}{r}{0.5\textwidth}
-                    
-                \centering
+                \begin{wrapfigure}{r}{0.5\textwidth}
 
-                \begin{tikzpicture}
-                    
-                        % Data Pool
-                        \node[draw, minimum width=3cm, minimum height=1cm, rotate=90]  (data) at (0.25,0) {Data Pool};
-                        
-                        % Instruction Pool
-                        \node[draw, minimum width=3.5cm, minimum height=1cm] (instruction) at (3,2.5) {Instruction Pool};
-                        
-                        % Processor
-                        \node[draw, minimum width=3.5cm, minimum height=3cm] (processor) at (3,0) {{\bold Processor}};
-                        
-                        % Arrows
-                        \draw[thick, ->] (data.south) -- (processor.west);
-                        \draw[thick, ->] (instruction.south) -- (processor.north);
+                    \centering
 
-                \end{tikzpicture}
+                    \begin{tikzpicture}
 
-                \caption{A conceptual diagram of SISD architecture.}
+                            % Data Pool
+                            \node[draw, minimum width=3cm, minimum height=1cm, rotate=90]  (data) at (0.25,0) {Data Pool};
 
-            \end{wrapfigure}
+                            % Instruction Pool
+                            \node[draw, minimum width=3.5cm, minimum height=1cm] (instruction) at (3,2.5) {Instruction Pool};
+
+                            % Processor
+                            \node[draw, minimum width=3.5cm, minimum height=3cm] (processor) at (3,0) {{\bold Processor}};
+
+                            % Arrows
+                            \draw[thick, ->] (data.south) -- (processor.west);
+                            \draw[thick, ->] (instruction.south) -- (processor.north);
+
+                    \end{tikzpicture}
+
+                    \caption{A conceptual diagram of SISD architecture.}
+
+                \end{wrapfigure}
 
                 The Single Instruction Single Data (SISD) architecture, introduced by John von Neumann in the late 1940s, processes one instruction at a time over a single data stream. This sequential nature means it doesn't support parallel processing, requiring only one processor to execute the tasks.
 
@@ -195,8 +197,286 @@
 
                 \end{itemize}
 
-                Thus, the total computational complexity is linear, i.e., $O(n)$, representing the number of accesses and operations required to complete the task.
+                Thus, the total computational complexity is linear, i.e., $O(n)$, representing the number of accesses and operations required to complete the task. For this type of architecture, the performance is highly dependent on the efficiency of the processor and memory access speed, as there is no way to split the workload across multiple processors.
+                
+            \subsection{MISD Architecture}
 
-                For this type of architecture, the performance is highly dependent on the efficiency of the processor and memory access speed, as there is no way to split the workload across multiple processors.
+                \begin{wrapfigure}{r}{0.5\textwidth}
+                
+                \centering
+                
+                    \begin{tikzpicture}
+
+                            % Data Pool
+                            \node[draw, minimum width=3cm, minimum height=1cm, rotate=90]  (data) at (-0.5,0) {Data Pool};
+
+                            % Instruction Pool
+                            \node[draw, minimum width=3.5cm, minimum height=1cm] (instruction) at (3,2.5) {Instruction Pool};
+
+                            % Processors
+                            \node[draw, minimum width=3.5cm, minimum height=1.3cm] (processor1) at (3,0.85) {{\bold Processor}};
+                            \node[draw, minimum width=3.5cm, minimum height=1.3cm] (processor2) at (3,-0.85) {{\bold Processor}};
+
+                            % Arrows
+                            % Arrow from Data Pool to junction point
+                            \draw[thick, ->] (0,0.85) -- (processor1.west);
+
+                            % Arrow from junction point to Processor2
+                            \draw[thick, ->] (0.625, 0.85) -- (0.625, -0.85) -- (processor2.west);
+
+                            % Arrow from Instruction Pool to Processor1 (straight)
+                            \draw[thick, ->] (4.17,2) -- (4.17,1.5);
+
+                            % Arrow from Instruction Pool to Processor2 (broken path)
+                            \draw[thick, ->] (instruction.east) -- (5.375, 2.5) -- (5.375, -0.85) -- (processor2.east);
+
+                    \end{tikzpicture}
+
+                    \caption{A conceptual diagram of MISD architecture.}
+
+                \end{wrapfigure}
+
+                The Multiple Instruction Single Data (MISD) is a less common architecture where multiple processors execute different instructions but operate on the same data stream simultaneously. This approach is primarily used in specialized applications like fault-tolerant systems or systems requiring redundancy. The MISD model is structured to handle cases where having multiple processors work on the same data but with different operations is crucial.
+
+                In MISD architecture, each processor has its own control unit that dictates the operations performed. Unlike SIMD, which focuses on parallel data processing, MISD involves parallel instruction execution on a single data stream. To illustrate, imagine a real-time safety system where different sensors provide data that multiple processors analyze for distinct purposes:
+
+                \begin{itemize}
+                    
+                    \item {\bold Processor 1} checks if the temperature is within a safe range.
+                
+                    \item {\bold Processor 2} monitors the pressure of the system.
+
+                    \item {\bold Processor 3} assesses voltage levels.
+
+                \end{itemize}
+
+                All processors work on the same data stream from the sensors but perform different tasks to ensure system reliability and fault tolerance. If any processor detects a problem, the system can react accordingly to prevent failure.
+
+                In a typical MISD system:
+
+                \begin{itemize}
+
+                    \item Multiple processors (N) receive the same input data simultaneously.
+
+                    \item Each processor is responsible for executing a unique instruction on that shared data stream.
+
+                    \item The processors operate in parallel, but the parallelism applies to the instruction execution, not to the data.
+
+                \end{itemize}
+
+                This kind of architecture is rare due to its niche applicability, often used in scenarios where redundancy is crucial, such as avionics or control systems, where the same data needs to be processed in multiple ways to ensure accuracy and safety.
+
+                The time complexity of an MISD system depends heavily on the operations performed by each processor. Each processor runs independently, and the overall time to process the data is determined by the slowest processor, similar to SISD's sequential operation but distributed across different instruction sets.
+
+                For N processors with execution times $T_1, T_2, \dots, T_N$, the overall time complexity is governed by the maximum time:
+
+                $$T_{total}=max(T_1, T_2, \dots, T_N)$$
+
+                This means the overall system performance is constrained by the processor taking the longest to complete its task.
+
+                The Single Instruction Multiple Data (SIMD) architecture enables a single instruction to operate simultaneously across multiple data streams. In this model, one instruction, such as an addition or comparison, is applied to different sets of data in parallel, which significantly enhances processing efficiency.
+
+                In an SIMD system, there are N identical processors, all controlled by a single stream of instructions from a central control unit. Each processor executes the same instruction but operates on its own separate data stream. Therefore, N data streams exist, with one data stream assigned to each processor.
+
+                Communication between processors for data transfer in SIMD computers can occur in two main ways:
+
+                \begin{enumerate}
+                    
+                    \item {\bold Shared memory:} All processors access a common memory space to fetch or store data. In Shared-Memory (SM) SIMD computers, the communication between processors occurs through a shared memory space. This model is often referred to as the Parallel Random-Access Machine (PRAM) model, where multiple processors work in parallel, and data exchange happens via common memory access.
+
+                    When a processor (say {\bold processor i}) wants to send data to another processor ({\bold processor j}), the process follows two key steps:
+
+                    \begin{enumerate}
+                        
+                        \item {\bold Processor i} writes the data into a known location in the shared memory, which {\bold processor j} can access.
+
+                        \item {\bold Processor j} then reads the data from that specific location.
+                        
+                    \end{enumerate}
+
+                    SIMD shared-memory computers are categorized based on how processors can concurrently access the same memory location. These categories determine how simultaneous read and write operations are handled, as follows:
+
+                    \begin{itemize}
+                        
+                        \item {\bold Exclusive-Read, Exclusive-Write (EREW):} No two processors can read from or write to the same memory location at the same time.
+
+                        \item {\bold Concurrent-Read, Exclusive-Write (CREW):} Multiple processors can read from the same memory location simultaneously, but only one can write to a memory location at any given time.
+
+                        \item {\bold Exclusive-Read, Concurrent-Write (ERCW):} Only one processor can read from a memory location at a time, but multiple processors can write to the same location simultaneously.
+
+                        \item {\bold Concurrent-Read, Concurrent-Write (CRCW):} Both read and write operations can be performed by multiple processors on the same memory location simultaneously.
+
+                    \end{itemize}
+
+                    These categories define the degree of parallelism and the restrictions on data sharing among processors in a shared-memory SIMD system.
+
+                    \item {\bold Interconnection networks:} A specialized network connects the processors to facilitate data transfer between them.
+
+                \end{enumerate}
+
+                SIMD architecture is particularly well-suited for tasks requiring parallel data processing, such as graphical computations or heavy workloads where operations need to be performed on multiple data elements simultaneously. For example, in image or video processing, SIMD can process multiple pixels or image sections in parallel, leading to a significant speedup in computation.
+                
+                \begin{tcolorbox}[colback=white, colframe=black!25, title=Example]
+                    
+                    Searching for element x in an unordered file with n distinct entries using different SIMD models.
+
+                    \begin{minipage}{0.49\linewidth} % First
+                        
+                        \footnotesize
+                        
+                        \vspace{0.3cm}
+                        
+                        \begin{tcolorbox}[colframe=white, size=small]
+
+                            {\bold Using the EREW Model with N processors where $N\geq n$}
+                            
+
+                            Phase 1:
+                            
+                            Broadcasting the value of x to all processors in  $O(N\log N)$ time
+
+                            \begin{itemize}
+                                
+                                \item Processor P1 sends x to P3 and P2 sends x to P4, and so on.
+                                \item This process continues until all processors have the value x.
+
+                            \end{itemize}
+
+                            Phase 2:
+                            
+                            Simultaneous search in sub-files by processors in $O(\frac{N}{n})$ time.
+                            
+                            \begin{itemize}
+                                
+                                \item Processor P1 searches the first $\frac{n}{N}$ data.
+                                \item Processor P2 searches the second $\frac{n}{N}$ data.
+                                \item And so on for all N processors.
+
+                            \end{itemize}
+
+                            Initially, F is set to false. The first processor to find x sets F to true. All processors check F at each step, and if F becomes true, the search ends. The broadcast of F takes $O(\log N)$ time per step.
+                            In the worst case, the EREW model requires $+ O(N\log N(N \log(\frac{N}{n})))$ time.
+
+                        \end{tcolorbox}
+
+                    \end{minipage}
+                    \hfill
+                    \begin{minipage}{0.49\linewidth} % Second
+                        
+                        \footnotesize
+                        
+                        \vspace{0.3cm}
+                        
+                        \begin{tcolorbox}[colframe=white, size=small]
+
+                            {\bold Using the CREW Model with N processors where $N\geq n$}
+
+
+                            Phase 1:
+                            
+                            Broadcasting the value of x to all processors in parallel using a single write per memory location.
+
+                            \begin{itemize}
+                                
+                                \item Since concurrent reads are allowed, all processors can read the value of x from a shared memory location at the same time, significantly speeding up the process.
+
+                                \item This reduces the broadcast time to $O(\log N)$ since only one write operation is needed.
+
+                            \end{itemize}
+
+                            Phase 2:
+                            
+                            Simultaneous search in sub-files by processors in $O(\frac{N}{n})$ time.
+
+                            \begin{itemize}
+                                
+                                \item Similar to the EREW model, P1 searches the first $\frac{n}{N}$ data, P2 searches the second, and so on.
+
+                                \item As soon as one processor finds x, it updates F to true, and the search ends.
+
+                            \end{itemize}
+
+                            With concurrent reads, the worst-case time complexity is reduced to $N\log (\frac{N}{n})+O(\log N)$.
+
+                        \end{tcolorbox}
+
+                    \end{minipage}
+
+                    \begin{minipage}{0.48\linewidth} % Thired
+                        
+                        \footnotesize
+                        
+                        \vspace{0.3cm}
+                        
+                        \begin{tcolorbox}[colframe=white, size=small]
+
+                            {\bold Using the ERCW Model with N processors where $N\geq n$}
+
+                            Phase 1:
+                            
+                            Broadcasting x to all processors in $O(\log N)$ time.
+
+                            \begin{itemize}
+                                
+                                \item Similar to CREW, all processors can read x from a shared location.
+
+                            \end{itemize}
+
+                            Phase 2:
+                            
+                            Simultaneous search in sub-files by processors in $O(\frac{N}{n})$ time.
+
+                            \begin{itemize}
+                                
+                                \item Again, processors search different parts of the data in parallel.
+                                
+                                \item However, here multiple processors can concurrently write to the same memory location. If one processor finds x, it writes to the shared F location. Other processors can also attempt to write, but only one write will succeed.
+
+                            \end{itemize}
+
+                            With concurrent writes, the time complexity remains $+O(\log N(N \log(\frac{N}{n})))$, though write conflicts may slightly impact performance.
+
+                        \end{tcolorbox}
+                    \end{minipage}
+                    \hfill
+                    \begin{minipage}{0.49\linewidth} % Fourth
+                        
+                        \footnotesize
+                        
+                        \vspace{0.3cm}
+                        
+                        \begin{tcolorbox}[colframe=white, size=small]
+                            
+                            {\bold Using the CRCW Model with N processors where $N\geq n$}
+
+                            Phase 1:
+                            
+                            Broadcasting x to all processors in constant time $O(1)$.
+
+                            \begin{itemize}
+                                
+                                \item In this model, both reads and writes are performed concurrently, so all processors can obtain the value of x simultaneously from the shared memory.
+
+                            \end{itemize}
+
+                            Phase 2:
+                            
+                            Simultaneous search in sub-files by processors in parallel.
+
+                            \begin{itemize}
+                                
+                                \item Each processor searches its assigned portion of the data. Once a processor finds x, it writes true to F, and the search concludes. Since multiple writes are allowed at the same memory location, any processor finding x can update F without delay.
+
+                            \end{itemize}
+                            
+                            The worst-case time complexity for CRCW is minimized to $O(\frac{N}{n})$ because concurrent reading and writing reduce the overhead. 
+                        
+                        \end{tcolorbox}
+                    
+                    \end{minipage}
+                
+                \end{tcolorbox}
+
+
 
 \end{document}
