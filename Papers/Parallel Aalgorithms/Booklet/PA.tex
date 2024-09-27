@@ -274,6 +274,8 @@
 
                 This means the overall system performance is constrained by the processor taking the longest to complete its task.
 
+            \subsection{SIMD Architecture}
+
                 The Single Instruction Multiple Data (SIMD) architecture enables a single instruction to operate simultaneously across multiple data streams. In this model, one instruction, such as an addition or comparison, is applied to different sets of data in parallel, which significantly enhances processing efficiency.
 
                 In an SIMD system, there are N identical processors, all controlled by a single stream of instructions from a central control unit. Each processor executes the same instruction but operates on its own separate data stream. Therefore, N data streams exist, with one data stream assigned to each processor.
@@ -282,7 +284,19 @@
 
                 \begin{enumerate}
                     
-                    \item {\bold Shared memory:} All processors access a common memory space to fetch or store data. In Shared-Memory (SM) SIMD computers, the communication between processors occurs through a shared memory space. This model is often referred to as the Parallel Random-Access Machine (PRAM) model, where multiple processors work in parallel, and data exchange happens via common memory access.
+                    \item {\bold Shared memory:} All processors access a common memory space to fetch or store data.
+
+
+
+                    \item {\bold Interconnection networks:} A specialized network connects the processors to facilitate data transfer between them.
+
+                \end{enumerate}
+
+                SIMD architecture is particularly well-suited for tasks requiring parallel data processing, such as graphical computations or heavy workloads where operations need to be performed on multiple data elements simultaneously. For example, in image or video processing, SIMD can process multiple pixels or image sections in parallel, leading to a significant speedup in computation.
+
+                \subsubsection{{\bold > \hspace{10pt} Shared Memory (SM) SIMD Computers}}
+
+                    In Shared-Memory (SM) SIMD computers, the communication between processors occurs through a shared memory space. This model is often referred to as the Parallel Random-Access Machine (PRAM) model, where multiple processors work in parallel, and data exchange happens via common memory access.
 
                     When a processor (say {\bold processor i}) wants to send data to another processor ({\bold processor j}), the process follows two key steps:
 
@@ -307,159 +321,273 @@
                         \item {\bold Concurrent-Read, Concurrent-Write (CRCW):} Both read and write operations can be performed by multiple processors on the same memory location simultaneously.
 
                     \end{itemize}
-
+                
                     These categories define the degree of parallelism and the restrictions on data sharing among processors in a shared-memory SIMD system.
 
-                    \item {\bold Interconnection networks:} A specialized network connects the processors to facilitate data transfer between them.
-
-                \end{enumerate}
-
-                SIMD architecture is particularly well-suited for tasks requiring parallel data processing, such as graphical computations or heavy workloads where operations need to be performed on multiple data elements simultaneously. For example, in image or video processing, SIMD can process multiple pixels or image sections in parallel, leading to a significant speedup in computation.
-                
-                \begin{tcolorbox}[colback=white, colframe=black!25, title=Example]
+                    \begin{tcolorbox}[colback=white, colframe=black!25, title=Example]
                     
-                    Searching for element x in an unordered file with n distinct entries using different SIMD models.
-
-                    \begin{minipage}{0.49\linewidth} % First
-                        \footnotesize
-                        \vspace{0.3cm}
-                        \begin{tcolorbox}[colframe=white, size=small]
-
-                            {\bold Using the EREW Model with N processors where $N\geq n$}
-                            
-
-                            Phase 1:
-                            
-                            Broadcasting the value of x to all processors in  $O(N\log N)$ time
-
-                            \begin{itemize}
+                        Searching for element x in an unordered file with n distinct entries using different SIMD models.
+    
+                        \begin{minipage}{0.49\linewidth} % First
+                            \footnotesize
+                            \vspace{0.3cm}
+                            \begin{tcolorbox}[colframe=white, size=small]
+    
+                                {\bold Using the EREW Model with N processors where $N\geq n$}
                                 
-                                \item Processor P1 sends x to P3 and P2 sends x to P4, and so on.
-                                \item This process continues until all processors have the value x.
+                                \vspace{0.3cm}
 
-                            \end{itemize}
-
-                            Phase 2:
-                            
-                            Simultaneous search in sub-files by processors in $O(\frac{N}{n})$ time.
-                            
-                            \begin{itemize}
+                                {\bold Phase 1:}
                                 
-                                \item Processor P1 searches the first $\frac{n}{N}$ data.
-                                \item Processor P2 searches the second $\frac{n}{N}$ data.
-                                \item And so on for all N processors.
-
-                            \end{itemize}
-
-                            Initially, F is set to false. The first processor to find x sets F to true. All processors check F at each step, and if F becomes true, the search ends. The broadcast of F takes $O(\log N)$ time per step.
-                            In the worst case, the EREW model requires $+ O(N\log N(N \log(\frac{N}{n})))$ time.
-                        \end{tcolorbox}
-                    \end{minipage}
-                    \hfill
-                    \begin{minipage}{0.49\linewidth} % Second
-                        \footnotesize
-                        \vspace{0.3cm}
-                        \begin{tcolorbox}[colframe=white, size=small]
-
-                            {\bold Using the CREW Model with N processors where $N\geq n$}
-
-
-                            Phase 1:
-                            
-                            Broadcasting the value of x to all processors in parallel using a single write per memory location.
-
-                            \begin{itemize}
+                                Broadcasting the value of x to all processors in  $O(N\log N)$ time
+    
+                                \begin{itemize}
+                                    
+                                    \item Processor P1 sends x to P3 and P2 sends x to P4, and so on.
+                                    \item This process continues until all processors have the value x.
+    
+                                \end{itemize}
+    
+                                {\bold Phase 2:}
                                 
-                                \item Since concurrent reads are allowed, all processors can read the value of x from a shared memory location at the same time, significantly speeding up the process.
-
-                                \item This reduces the broadcast time to $O(\log N)$ since only one write operation is needed.
-
-                            \end{itemize}
-
-                            Phase 2:
-                            
-                            Simultaneous search in sub-files by processors in $O(\frac{N}{n})$ time.
-
-                            \begin{itemize}
+                                Simultaneous search in sub-files by processors in $O(\frac{N}{n})$ time.
                                 
-                                \item Similar to the EREW model, P1 searches the first $\frac{n}{N}$ data, P2 searches the second, and so on.
+                                \begin{itemize}
+                                    
+                                    \item Processor P1 searches the first $\frac{n}{N}$ data.
+                                    \item Processor P2 searches the second $\frac{n}{N}$ data.
+                                    \item And so on for all N processors.
+    
+                                \end{itemize}
+    
+                                Initially, F is set to false. The first processor to find x sets F to true. All processors check F at each step, and if F becomes true, the search ends. The broadcast of F takes $O(\log N)$ time per step.
+                                In the worst case, the EREW model requires $+ O(N\log N(N \log(\frac{N}{n})))$ time.
+                            \end{tcolorbox}
+                        \end{minipage}
+                        \hfill
+                        \begin{minipage}{0.49\linewidth} % Second
+                            \footnotesize
+                            \vspace{0.3cm}
+                            \begin{tcolorbox}[colframe=white, size=small]
+    
+                                {\bold Using the CREW Model with N processors where $N\geq n$}
+    
+                                \vspace{0.3cm}
 
-                                \item As soon as one processor finds x, it updates F to true, and the search ends.
-
-                            \end{itemize}
-
-                            With concurrent reads, the worst-case time complexity is reduced to $N\log (\frac{N}{n})+O(\log N)$.
-
-                        \end{tcolorbox}
-                    \end{minipage}
-
-                    \begin{minipage}{0.49\linewidth} % Thired
-                        \footnotesize
-                        \vspace{0.3cm}
-                        \begin{tcolorbox}[colframe=white, size=small]
-
-                            {\bold Using the ERCW Model with N processors where $N\geq n$}
-
-                            Phase 1:
-                            
-                            Broadcasting x to all processors in $O(\log N)$ time.
-
-                            \begin{itemize}
+                                {\bold Phase 1:}
                                 
-                                \item Similar to CREW, all processors can read x from a shared location.
+                                Broadcasting the value of x to all processors in parallel using a single write per memory location.
+    
+                                \begin{itemize}
+                                    
+                                    \item Since concurrent reads are allowed, all processors can read the value of x from a shared memory location at the same time, significantly speeding up the process.
+    
+                                    \item This reduces the broadcast time to $O(\log N)$ since only one write operation is needed.
+    
+                                \end{itemize}
 
-                            \end{itemize}
-
-                            Phase 2:
-                            
-                            Simultaneous search in sub-files by processors in $O(\frac{N}{n})$ time.
-
-                            \begin{itemize}
+                                {\bold Phase 2:}
                                 
-                                \item Again, processors search different parts of the data in parallel.
+                                Simultaneous search in sub-files by processors in $O(\frac{N}{n})$ time.
+    
+                                \begin{itemize}
+                                    
+                                    \item Similar to the EREW model, P1 searches the first $\frac{n}{N}$ data, P2 searches the second, and so on.
+    
+                                    \item As soon as one processor finds x, it updates F to true, and the search ends.
+    
+                                \end{itemize}
+    
+                                With concurrent reads, the worst-case time complexity is reduced to $N\log (\frac{N}{n})+O(\log N)$.
+    
+                            \end{tcolorbox}
+                        \end{minipage}
+    
+                        \begin{minipage}{0.49\linewidth} % Thired
+                            \footnotesize
+                            \vspace{0.3cm}
+                            \begin{tcolorbox}[colframe=white, size=small]
+    
+                                {\bold Using the ERCW Model with N processors where $N\geq n$}
+    
+                                \vspace{0.3cm}
+
+                                {\bold Phase 1:}
                                 
-                                \item However, here multiple processors can concurrently write to the same memory location. If one processor finds x, it writes to the shared F location. Other processors can also attempt to write, but only one write will succeed.
-
-                            \end{itemize}
-
-                            With concurrent writes, the time complexity remains $+O(\log N(N \log(\frac{N}{n})))$, though write conflicts may slightly impact performance.
-
-                        \end{tcolorbox}
-                    \end{minipage}
-                    \hfill
-                    \begin{minipage}{0.49\linewidth} % Fourth
-                        \footnotesize
-                        \vspace{0.3cm}
-                        \begin{tcolorbox}[colframe=white, size=small]
-                            
-                            {\bold Using the CRCW Model with N processors where $N\geq n$}
-
-                            Phase 1:
-                            
-                            Broadcasting x to all processors in constant time $O(1)$.
-
-                            \begin{itemize}
+                                Broadcasting x to all processors in $O(\log N)$ time.
+    
+                                \begin{itemize}
+                                    
+                                    \item Similar to CREW, all processors can read x from a shared location.
+    
+                                \end{itemize}
+    
+                                {\bold Phase 2:}
                                 
-                                \item In this model, both reads and writes are performed concurrently, so all processors can obtain the value of x simultaneously from the shared memory.
-
-                            \end{itemize}
-
-                            Phase 2:
-                            
-                            Simultaneous search in sub-files by processors in parallel.
-
-                            \begin{itemize}
+                                Simultaneous search in sub-files by processors in $O(\frac{N}{n})$ time.
+    
+                                \begin{itemize}
+                                    
+                                    \item Again, processors search different parts of the data in parallel.
+                                    
+                                    \item However, here multiple processors can concurrently write to the same memory location. If one processor finds x, it writes to the shared F location. Other processors can also attempt to write, but only one write will succeed.
+    
+                                \end{itemize}
+    
+                                With concurrent writes, the time complexity remains $+O(\log N(N \log(\frac{N}{n})))$, though write conflicts may slightly impact performance.
+    
+                            \end{tcolorbox}
+                        \end{minipage}
+                        \hfill
+                        \begin{minipage}{0.49\linewidth} % Fourth
+                            \footnotesize
+                            \vspace{0.3cm}
+                            \begin{tcolorbox}[colframe=white, size=small]
                                 
-                                \item Each processor searches its assigned portion of the data. Once a processor finds x, it writes true to F, and the search concludes. Since multiple writes are allowed at the same memory location, any processor finding x can update F without delay.
-
-                            \end{itemize}
+                                {\bold Using the CRCW Model with N processors where $N\geq n$}
+    
+                                {\bold Phase 1:}
+                                
+                                Broadcasting x to all processors in constant time $O(1)$.
+    
+                                \begin{itemize}
+                                    
+                                    \item In this model, both reads and writes are performed concurrently, so all processors can obtain the value of x simultaneously from the shared memory.
+    
+                                \end{itemize}
+    
+                                {\bold Phase 2:}
+                                
+                                Simultaneous search in sub-files by processors in parallel.
+    
+                                \begin{itemize}
+                                    
+                                    \item Each processor searches its assigned portion of the data. Once a processor finds x, it writes true to F, and the search concludes. Since multiple writes are allowed at the same memory location, any processor finding x can update F without delay.
+    
+                                \end{itemize}
+                                
+                                The worst-case time complexity for CRCW is minimized to $O(\frac{N}{n})$ because concurrent reading and writing reduce the overhead. 
                             
-                            The worst-case time complexity for CRCW is minimized to $O(\frac{N}{n})$ because concurrent reading and writing reduce the overhead. 
+                            \end{tcolorbox}
+                        \end{minipage}
+                    
+                    \end{tcolorbox}
+
+                    When designing shared-memory SIMD computers, one of the main challenges is how to efficiently manage access to memory locations shared by multiple processors. The key concern is the cost of routing data between processors and memory, which scales with the number of processors $N$ and memory locations $M$. Now the problem overview raised is below:
+
+                    \begin{itemize}
                         
-                        \end{tcolorbox}
-                    \end{minipage}
+                        \item Memory circuits need to be established to create pathways between the processors and the shared memory locations.
+
+                        \item If each processor has its own dedicated memory, the cost for this approach is proportional to $f(M)$.
+
+                        \item Sharing memory among processors reduces the total memory cost, but for large $N$ and $M$, the circuit cost can still become significant, growing proportionally to $N \times f(M)$.
+
+                    \end{itemize}
+
+                    To address this problem, several strategies have been proposed:
+
+                    \begin{enumerate}
+                        
+                        \item {\bold Approach 1:} Dividing shared memory into $R$ blocks of equal size, where each processor can access a block of memory at a time ($\frac{M}{R}$). This reduces the required memory per processor.
+
+                        \item {\bold Approach 2:} Distributing $N$ memory locations equally among $N$ processors, with each processor handling a specific portion of the memory ($\frac{M}{N}$). This helps balance the workload and reduce memory contention.
+
+                    \end{enumerate}
+
+                    \begin{tcolorbox}[colback=white, colframe=black!25, title= Example$:$ Memory Partitioning and Access (SM SIMD)]
+                    
+                        In more detail, consider the scenario where memory is shared between $N$ processors by dividing the memory into $R$ blocks of equal size, where each processor can access one block at a time. For example, if $R = 3$ and $N = 5$, the processors share memory with each accessing its respective block.
+
+                        \begin{minipage}{0.49\linewidth}
+                            \footnotesize
+                            \vspace{0.3cm}
+                            \begin{tcolorbox}[colframe=white, size=small]
+                                
+                                {\bold Key Points:}
+
+                                \begin{itemize}
+                                    
+                                    \item In each time step, a processor can only access one block of shared memory ($\frac{M}{R}$).
+
+                                    \item The $N + R$ bidirectional links provide access between each processor and its designated block of memory.
+
+                                    \item The overall circuit cost grows according to $N \times R \times f(\frac{M}{R})$, with an additional switch needed for managing simultaneous access.
+
+                                \end{itemize}
+                                
+                            \end{tcolorbox}
+                        \end{minipage}
+                        \hfill
+                        \begin{minipage}{0.49\linewidth}
+                            \footnotesize
+                            \vspace{0.3cm}
+                            \begin{tcolorbox}[colframe=white, size=small]
+                                
+                                In practice, this model ensures efficient memory access without overwhelming the system with excessive memory demands, but it requires careful management of access timing and switching to avoid conflicts.
+
+                            \end{tcolorbox}
+                        \end{minipage}
+
+                        \vspace{0.4cm}
+                        \begin{center}
+                            \begin{tikzpicture}
+                                
+                                % Processors
+                                \node[draw, minimum width=2.5cm, minimum height=1cm, line width=1] (P1) at (0,0) {\bold Processor 1};
+                                \node[draw, minimum width=2.5cm, minimum height=1cm, line width=1] (P2) at (0,1.5) {\bold Processor 2};
+                                \node[draw, minimum width=2.5cm, minimum height=1cm, line width=1] (P3) at (0,3) {\bold Processor 3};
+                                \node[draw, minimum width=2.5cm, minimum height=1cm, line width=1] (P4) at (0,4.5) {\bold Processor 4};
+                                \node[draw, minimum width=2.5cm, minimum height=1cm, line width=1] (P5) at (0,6) {\bold Processor 5};
+                                
+                                % Memories
+                                \node[draw, minimum width=3cm, minimum height=1cm, line width=1] (M1) at (3.5,-1.5) {\bold Memory Block 1};
+                                \node[draw, minimum width=3cm, minimum height=1cm, line width=1] (M2) at (7,-1.5) {\bold Memory Block 2};
+                                \node[draw, minimum width=3cm, minimum height=1cm, line width=1] (M3) at (10.5,-1.5) {\bold Memory Block 3};
+
+                                % Joints
+                                \foreach \i in {1,2,3,4,5} {
+                                    \foreach \j in {1} {
+                                        \draw[-] (P\i.east) -- ++(2.25,0) -- (M\j.north);
+                                        }
+                                        }
+                                
+                                \foreach \i in {1,2,3,4,5} {
+                                    \foreach \j in {2} {
+                                        \draw[-] (P\i.east) -- ++(5.75,0) -- (M\j.north);
+                                        }
+                                        }
+
+                                \foreach \i in {1,2,3,4,5} {
+                                    \foreach \j in {3} {
+                                        \draw[-] (P\i.east) -- ++(9.25,0) -- (M\j.north);
+                                        }
+                                        }
+
+                                % Circles
+                                \draw[black, fill=black] (3.5,0) circle (0.1cm);
+                                \draw[black, fill=black] (7,0) circle (0.1cm);
+                                \draw[black, fill=black] (10.5,0) circle (0.1cm);
+                                \draw[black, fill=black] (3.5,1.5) circle (0.1cm);
+                                \draw[black, fill=black] (7,1.5) circle (0.1cm);
+                                \draw[black, fill=black] (10.5,1.5) circle (0.1cm);
+                                \draw[black, fill=black] (3.5,3) circle (0.1cm);
+                                \draw[black, fill=black] (7,3) circle (0.1cm);
+                                \draw[black, fill=black] (10.5,3) circle (0.1cm);
+                                \draw[black, fill=black] (3.5,4.5) circle (0.1cm);
+                                \draw[black, fill=black] (7,4.5) circle (0.1cm);
+                                \draw[black, fill=black] (10.5,4.5) circle (0.1cm);
+                                \draw[black, fill=black] (3.5,6) circle (0.1cm);
+                                \draw[black, fill=black] (7,6) circle (0.1cm);
+                                \draw[black, fill=black] (10.5,6) circle (0.1cm);
+                                    
+                            \end{tikzpicture}        
+                        \end{center}
+                        \vspace{0.4cm}
+
+                    \end{tcolorbox}
+
                 
-                \end{tcolorbox}
 
                 
 
