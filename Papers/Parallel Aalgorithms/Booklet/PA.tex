@@ -321,11 +321,8 @@
                     Searching for element x in an unordered file with n distinct entries using different SIMD models.
 
                     \begin{minipage}{0.49\linewidth} % First
-                        
                         \footnotesize
-                        
                         \vspace{0.3cm}
-                        
                         \begin{tcolorbox}[colframe=white, size=small]
 
                             {\bold Using the EREW Model with N processors where $N\geq n$}
@@ -356,17 +353,12 @@
 
                             Initially, F is set to false. The first processor to find x sets F to true. All processors check F at each step, and if F becomes true, the search ends. The broadcast of F takes $O(\log N)$ time per step.
                             In the worst case, the EREW model requires $+ O(N\log N(N \log(\frac{N}{n})))$ time.
-
                         \end{tcolorbox}
-
                     \end{minipage}
                     \hfill
                     \begin{minipage}{0.49\linewidth} % Second
-                        
                         \footnotesize
-                        
                         \vspace{0.3cm}
-                        
                         \begin{tcolorbox}[colframe=white, size=small]
 
                             {\bold Using the CREW Model with N processors where $N\geq n$}
@@ -399,15 +391,11 @@
                             With concurrent reads, the worst-case time complexity is reduced to $N\log (\frac{N}{n})+O(\log N)$.
 
                         \end{tcolorbox}
-
                     \end{minipage}
 
-                    \begin{minipage}{0.48\linewidth} % Thired
-                        
+                    \begin{minipage}{0.49\linewidth} % Thired
                         \footnotesize
-                        
                         \vspace{0.3cm}
-                        
                         \begin{tcolorbox}[colframe=white, size=small]
 
                             {\bold Using the ERCW Model with N processors where $N\geq n$}
@@ -440,11 +428,8 @@
                     \end{minipage}
                     \hfill
                     \begin{minipage}{0.49\linewidth} % Fourth
-                        
                         \footnotesize
-                        
                         \vspace{0.3cm}
-                        
                         \begin{tcolorbox}[colframe=white, size=small]
                             
                             {\bold Using the CRCW Model with N processors where $N\geq n$}
@@ -472,11 +457,10 @@
                             The worst-case time complexity for CRCW is minimized to $O(\frac{N}{n})$ because concurrent reading and writing reduce the overhead. 
                         
                         \end{tcolorbox}
-                    
                     \end{minipage}
                 
                 \end{tcolorbox}
 
-
+                
 
 \end{document}
