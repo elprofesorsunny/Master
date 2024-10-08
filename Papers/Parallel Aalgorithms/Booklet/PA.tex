@@ -9,6 +9,9 @@
 
 \usepackage{tikz}
 \usepackage{amsmath}
+\usepackage{forest}
+\usetikzlibrary{shadows}
+
 
 \usepackage{fontspec} % --fontspec-- package to use other fonts
 \setmainfont{Vazirmatn-Regular.ttf} 
@@ -579,14 +582,234 @@
                                 \draw[black, fill=black] (7,6) circle (0.1cm);
                                 \draw[black, fill=black] (10.5,6) circle (0.1cm);
                                     
-                            \end{tikzpicture}        
+                            \end{tikzpicture}
                         \end{center}
                         \vspace{0.4cm}
 
                     \end{tcolorbox}
 
-                
+                \subsubsection{{\bold > \hspace{10pt} Interconnection Network (IN) SIMD Computers}}
 
-                
+                    In SIMD computers, interconnection networks play a crucial role in efficiently distributing and processing data across multiple processors. The memory is distributed evenly between $N$ processors, and each processor is connected to others, facilitating data exchange. In fully connected networks, every processor is directly connected to every other processor, ensuring fast communication and reducing latency. The communication cost, however, increases significantly as the number of processors grows, following the relationship $O(N^2)$ for connection setup.
+
+                    Interconnection networks can be classified into two main types:
+
+                    \begin{itemize}
+                        
+                        \item {\bold Dynamic Networks:} The connections are configured dynamically, adjusting based on the specific task or algorithm.
+
+                        \item {\bold Static Networks:} These networks have fixed, unchanging connections between processors.
+
+                    \end{itemize}
+
+                    Dynamic and static networks can further be differentiated based on their topologies. Topologies are the physical or logical arrangement of the network, defining how processors are interconnected. For SIMD computers, static networks are more common due to their simplicity and ease of design, and they include structures like linear arrays, trees, rings, and hypercubes. Each topology offers a different balance between complexity, cost, and communication speed, impacting the overall performance of the system. Compared to models like MISD, static interconnection networks in SIMD computers are easier to design, and the underlying algorithms are simpler. These systems are most suited for problems where data is evenly distributed among processors and need to be processed concurrently.
+
+                    When designing interconnection networks, key factors include:
+
+                    \begin{itemize}
+                        
+                        \item {\bold Degree:} The maximum number of direct connections a processor can have.
+
+                        \item {\bold Diameter:} The longest distance between any two processors in the network.
+
+                        \item {\bold Bisection Width:} The minimum number of connections that must be removed to split the network into two equal halves.
+
+                    \end{itemize}
+
+                    Different topologies offer varying levels of performance based on these parameters. For instance, a completely connected network provides the best communication speed, but at the cost of increased complexity in wiring and connection management.
+
+                    \begin{center}
+                        
+                        \begin{forest}
+                            for tree={rounded corners,
+                            draw,
+                            text centered,
+                            anchor=north,
+                            grow=east,
+                            anchor=west,
+                            parent anchor=east,
+                            child anchor=west,
+                            l sep=1cm,
+                            s sep=0.2cm,
+                            tier/.wrap pgfmath arg={level#1}{level()}
+                            }
+                            [Static Interconnection Networks
+                                [LCN
+                                    [Hybrid
+                                        [Pyramid]
+                                        [Diamond]
+                                        [MMT]
+                                    ]
+                                    [4D
+                                        [Hypercube]
+                                    ]
+                                    [3D
+                                        [3D Mesh]
+                                        [Cube]
+                                    ]
+                                    [2D
+                                        [Ring]
+                                        [Mesh]
+                                        [2D Torus]
+                                        [ILLIAC]
+                                        [Fat Tree]
+                                        [Tree]
+                                    ]
+                                    [1D
+                                        [Linear Array]
+                                    ]
+                                ]
+                                [CCN
+                                    [Completely Connected]
+                                ]
+                            ]
+                        \end{forest}
+                    \end{center}
+
+                    Here's a detailed overview of the various static interconnection network topologies depicted in the diagram. These topologies represent different ways to connect processors and memory blocks in parallel computing systems, ensuring efficient communication between different processing elements (PEs). Each topology has its own unique structure, offering distinct advantages in terms of latency, scalability, and fault tolerance. The choice of an appropriate interconnection network plays a crucial role in optimizing the performance of SIMD or MIMD systems, depending on the specific requirements of the task at hand.
+
+                    \vspace{0.4cm}
+                    \noindent
+                    \begin{minipage}{0.49\linewidth} % Linear Array
+                        \begin{tcolorbox}[colframe=black!50, colback=white, size=small]
+
+                            {\bold Linear Array}
+                            
+                            Processors are connected in a straight line, with each processor linked to its immediate neighbor.
+
+                        \end{tcolorbox}
+                    \end{minipage}
+                    \hfill
+                    \begin{minipage}{0.49\linewidth}
+                        \begin{tcolorbox}[colframe=black!50, colback=white, size=small]
+                            
+                            {\bold Mesh}
+                            
+                            Processors are arranged in a 2D grid, with each processor connected to its four adjacent neighbors.
+
+                        \end{tcolorbox}                        
+                    \end{minipage}
+
+                    \vspace{0.3cm}
+                    \noindent
+                    \begin{minipage}{0.49\linewidth}
+                        \begin{tcolorbox}[colframe=black!50, colback=white, size=small]
+                            
+                            {\bold Tree}
+                            
+                            A hierarchical structure where each node (processor) has a parent-child relationship, used for efficient data propagation.
+
+                        \end{tcolorbox}
+                    \end{minipage}
+                    \hfill
+                    \begin{minipage}{0.49\linewidth}
+                        \begin{tcolorbox}[colframe=black!50, colback=white, size=small]
+
+                            {\bold Hypercube}
+                            
+                            An extension of the cube structure with more dimensions, providing even faster communication and better fault tolerance.
+
+                        \end{tcolorbox}
+                    \end{minipage}
+                    
+                    \vspace{0.3cm}
+                    \noindent
+                    \begin{minipage}{0.49\linewidth}
+                        \begin{tcolorbox}[colframe=black!50, colback=white, size=small]
+                            
+                            {\bold Cube}
+                            
+                            Processors are connected in the shape of a 3D cube, offering fast communication between nearby nodes.
+
+                        \end{tcolorbox}
+                    \end{minipage}
+                    \hfill
+                    \begin{minipage}{0.49\linewidth}
+                        \begin{tcolorbox}[colframe=black!50, colback=white, size=small]
+                            
+                            {\bold Ring}
+                            
+                            Processors form a circular connection where each one is linked to two neighbors, forming a loop.
+
+                        \end{tcolorbox}
+                    \end{minipage}
+                    
+                    \vspace{0.3cm}
+                    \noindent
+                    \begin{minipage}{0.49\linewidth}
+                        \begin{tcolorbox}[colframe=black!50, colback=white, size=small]
+
+                            {\bold Completely Connected}
+                            
+                            Every processor is directly connected to every other processor, allowing the fastest possible communication.
+
+                        \end{tcolorbox}
+                    \end{minipage}
+                    \hfill
+                    \begin{minipage}{0.49\linewidth}
+                        \begin{tcolorbox}[colframe=black!50, colback=white, size=small]
+                            
+                            {\bold Fat Tree}
+                            
+                            A tree structure with more bandwidth at higher levels, commonly used for network switches to balance loads.
+
+                        \end{tcolorbox}
+                    \end{minipage}
+                    
+                    \vspace{0.3cm}
+                    \noindent
+                    \begin{minipage}{0.49\linewidth}
+                        \begin{tcolorbox}[colframe=black!50, colback=white, size=small]
+                            
+                            {\bold ILLIAC}
+                            
+                            A specific grid-like topology designed for parallel processing, offering uniform communication.
+
+                        \end{tcolorbox}
+                    \end{minipage}
+                    \hfill
+                    \begin{minipage}{0.49\linewidth}
+                        \begin{tcolorbox}[colframe=black!50, colback=white, size=small]
+                            
+                            {\bold Chordal Ring}
+                            
+                            A ring with additional links between non-adjacent nodes to reduce communication delays.
+
+                        \end{tcolorbox}
+                    \end{minipage}
+                    
+                    \vspace{0.3cm}
+                    \noindent
+                    \begin{minipage}{0.49\linewidth}
+                        \begin{tcolorbox}[colframe=black!50, colback=white, size=small]
+                            
+                            {\bold 2D Torus}
+                            
+                            A mesh where the edges wrap around to form a torus shape, reducing edge communication costs.
+
+                        \end{tcolorbox}
+                    \end{minipage}
+                    \hfill
+                    \begin{minipage}{0.49\linewidth}
+                        \begin{tcolorbox}[colframe=black!50, colback=white, size=small]
+                            
+                            {\bold 3D Mesh}
+                            
+                            A three-dimensional extension of the mesh topology, useful for large systems with many processors.
+
+                        \end{tcolorbox}
+                    \end{minipage}
+                    
+                    \vspace{0.3cm}
+                    \noindent
+                    \begin{minipage}{1\linewidth}
+                        \begin{tcolorbox}[colframe=black!50, colback=white, size=small]
+                            
+                            {\bold 2D Tour (variation 2)}
+                            
+                            A variation of the 2D torus, possibly with different connectivity patterns for specialized tasks.
+
+                        \end{tcolorbox}
+                    \end{minipage}
 
 \end{document}
