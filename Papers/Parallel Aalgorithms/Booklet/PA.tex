@@ -677,6 +677,18 @@
                             
                             Processors are connected in a straight line, with each processor linked to its immediate neighbor.
 
+                            \begin{center}
+                                \begin{tikzpicture}
+                                    
+                                    \foreach \i in {1,...,6}
+                                        \node[circle, draw, fill=black!50] (n\i) at (\i,0) {};
+
+                                    \foreach \i in {1,...,5}
+                                        \draw (n\i) -- (n\the\numexpr\i+1);
+
+                                \end{tikzpicture}
+                            \end{center}
+
                         \end{tcolorbox}
                     \end{minipage}
                     \hfill
@@ -686,6 +698,24 @@
                             {\bold Mesh}
                             
                             Processors are arranged in a 2D grid, with each processor connected to its four adjacent neighbors.
+
+                            \begin{center}
+                                \begin{tikzpicture}
+                                    
+                                    \foreach \x in {1,2,3}
+                                        \foreach \y in {1,2,3}
+                                            \node[circle, draw, fill=black!50] (n\x\y) at (\x, \y) {};
+                                
+                                    \foreach \x in {1,2}
+                                        \foreach \y in {1,2,3}
+                                            \draw (n\x\y) -- (n\the\numexpr\x+1 \y);
+                                    
+                                    \foreach \x in {1,2,3}
+                                        \foreach \y in {1,2}
+                                            \draw (n\x\y) -- (n\x\the\numexpr\y+1);
+
+                                \end{tikzpicture}
+                            \end{center}
 
                         \end{tcolorbox}                        
                     \end{minipage}
@@ -699,6 +729,29 @@
                             
                             A hierarchical structure where each node (processor) has a parent-child relationship, used for efficient data propagation.
 
+                            \begin{center}
+                                \begin{tikzpicture}
+                                    
+                                    \node[circle, draw, fill=black!50] (root) at (0,2) {};
+    
+                                    \node[circle, draw, fill=black!50] (n1) at (-1,1) {};
+                                    \node[circle, draw, fill=black!50] (n2) at (1,1) {};
+                                    
+                                    \node[circle, draw, fill=black!50] (n3) at (-1.5,0) {};
+                                    \node[circle, draw, fill=black!50] (n4) at (-0.5,0) {};
+                                    \node[circle, draw, fill=black!50] (n5) at (0.5,0) {};
+                                    \node[circle, draw, fill=black!50] (n6) at (1.5,0) {};
+                                    
+                                    \draw (root) -- (n1);
+                                    \draw (root) -- (n2);
+                                    \draw (n1) -- (n3);
+                                    \draw (n1) -- (n4);
+                                    \draw (n2) -- (n5);
+                                    \draw (n2) -- (n6);
+
+                                \end{tikzpicture}
+                            \end{center}
+
                         \end{tcolorbox}
                     \end{minipage}
                     \hfill
@@ -708,6 +761,59 @@
                             {\bold Hypercube}
                             
                             An extension of the cube structure with more dimensions, providing even faster communication and better fault tolerance.
+
+                            \begin{center}
+                                \begin{tikzpicture}
+
+                                    \node[circle, draw, fill=black!50] (n1) at (0,0) {};
+                                    \node[circle, draw, fill=black!50] (n2) at (0,1) {};
+                                    \node[circle, draw, fill=black!50] (n3) at (1,0) {};
+                                    \node[circle, draw, fill=black!50] (n4) at (1,1) {};
+
+                                    \node[circle, draw, fill=black!50] (n5) at (0.3,0.3) {};
+                                    \node[circle, draw, fill=black!50] (n6) at (0.3,1.3) {};
+                                    \node[circle, draw, fill=black!50] (n7) at (1.3,0.3) {};
+                                    \node[circle, draw, fill=black!50] (n8) at (1.3,1.3) {};
+
+                                    \node[circle, draw, fill=black!50] (n9) at (3,0) {};
+                                    \node[circle, draw, fill=black!50] (n10) at (3,1) {};
+                                    \node[circle, draw, fill=black!50] (n11) at (4,0) {};
+                                    \node[circle, draw, fill=black!50] (n12) at (4,1) {};
+                                    
+                                    \node[circle, draw, fill=black!50] (n13) at (3.3,0.3) {};
+                                    \node[circle, draw, fill=black!50] (n14) at (3.3,1.3) {};
+                                    \node[circle, draw, fill=black!50] (n15) at (4.3,0.3) {};
+                                    \node[circle, draw, fill=black!50] (n16) at (4.3,1.3) {};
+
+                                    \draw (n1) -- (n2);
+                                    \draw (n1) -- (n3);
+                                    \draw (n1) -- (n5);
+                                    \draw (n2) -- (n4);
+                                    \draw (n2) -- (n6);
+                                    \draw (n3) -- (n4);
+                                    \draw (n3) -- (n7);
+                                    \draw (n4) -- (n8);
+                                    \draw (n5) -- (n6);
+                                    \draw (n5) -- (n7);
+                                    \draw (n6) -- (n8);
+                                    \draw (n7) -- (n8);
+                                    
+                                    \draw (n9) -- (n10);
+                                    \draw (n9) -- (n11);
+                                    \draw (n9) -- (n13);
+                                    \draw (n10) -- (n12);
+                                    \draw (n10) -- (n14);
+                                    \draw (n11) -- (n12);
+                                    \draw (n11) -- (n15);
+                                    \draw (n12) -- (n16);
+                                    \draw (n13) -- (n14);
+                                    \draw (n13) -- (n15);
+                                    \draw (n14) -- (n16);
+                                    \draw (n15) -- (n16);
+
+                                    
+                                \end{tikzpicture}
+                            \end{center}
 
                         \end{tcolorbox}
                     \end{minipage}
@@ -721,6 +827,14 @@
                             
                             Processors are connected in the shape of a 3D cube, offering fast communication between nearby nodes.
 
+                            \begin{center}
+                                \begin{tikzpicture}
+
+                                    
+                                    
+                                \end{tikzpicture}
+                            \end{center}
+
                         \end{tcolorbox}
                     \end{minipage}
                     \hfill
@@ -730,6 +844,14 @@
                             {\bold Ring}
                             
                             Processors form a circular connection where each one is linked to two neighbors, forming a loop.
+
+                            \begin{center}
+                                \begin{tikzpicture}
+
+                                    
+                                    
+                                \end{tikzpicture}
+                            \end{center}
 
                         \end{tcolorbox}
                     \end{minipage}
@@ -743,6 +865,14 @@
                             
                             Every processor is directly connected to every other processor, allowing the fastest possible communication.
 
+                            \begin{center}
+                                \begin{tikzpicture}
+
+                                    
+                                    
+                                \end{tikzpicture}
+                            \end{center}
+
                         \end{tcolorbox}
                     \end{minipage}
                     \hfill
@@ -753,6 +883,14 @@
                             
                             A tree structure with more bandwidth at higher levels, commonly used for network switches to balance loads.
 
+                            \begin{center}
+                                \begin{tikzpicture}
+
+                                    
+                                    
+                                \end{tikzpicture}
+                            \end{center}
+                            
                         \end{tcolorbox}
                     \end{minipage}
                     
@@ -765,6 +903,14 @@
                             
                             A specific grid-like topology designed for parallel processing, offering uniform communication.
 
+                            \begin{center}
+                                \begin{tikzpicture}
+
+                                    
+                                    
+                                \end{tikzpicture}
+                            \end{center}
+
                         \end{tcolorbox}
                     \end{minipage}
                     \hfill
@@ -774,6 +920,14 @@
                             {\bold Chordal Ring}
                             
                             A ring with additional links between non-adjacent nodes to reduce communication delays.
+
+                            \begin{center}
+                                \begin{tikzpicture}
+
+                                    
+                                    
+                                \end{tikzpicture}
+                            \end{center}
 
                         \end{tcolorbox}
                     \end{minipage}
@@ -787,6 +941,14 @@
                             
                             A mesh where the edges wrap around to form a torus shape, reducing edge communication costs.
 
+                            \begin{center}
+                                \begin{tikzpicture}
+
+                                    
+                                    
+                                \end{tikzpicture}
+                            \end{center}
+
                         \end{tcolorbox}
                     \end{minipage}
                     \hfill
@@ -796,6 +958,14 @@
                             {\bold 3D Mesh}
                             
                             A three-dimensional extension of the mesh topology, useful for large systems with many processors.
+
+                            \begin{center}
+                                \begin{tikzpicture}
+
+                                    
+                                    
+                                \end{tikzpicture}
+                            \end{center}
 
                         \end{tcolorbox}
                     \end{minipage}
@@ -808,6 +978,14 @@
                             {\bold 2D Tour (variation 2)}
                             
                             A variation of the 2D torus, possibly with different connectivity patterns for specialized tasks.
+
+                            \begin{center}
+                                \begin{tikzpicture}
+
+                                    
+                                    
+                                \end{tikzpicture}
+                            \end{center}
 
                         \end{tcolorbox}
                     \end{minipage}
