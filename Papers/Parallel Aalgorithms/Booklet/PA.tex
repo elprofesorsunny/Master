@@ -664,13 +664,16 @@
                                 ]
                             ]
                         \end{forest}
+
                     \end{center}
 
                     Here's a detailed overview of the various static interconnection network topologies depicted in the diagram. These topologies represent different ways to connect processors and memory blocks in parallel computing systems, ensuring efficient communication between different processing elements (PEs). Each topology has its own unique structure, offering distinct advantages in terms of latency, scalability, and fault tolerance. The choice of an appropriate interconnection network plays a crucial role in optimizing the performance of SIMD or MIMD systems, depending on the specific requirements of the task at hand.
 
-                    \vspace{0.4cm}
                     \noindent
-                    \begin{minipage}{0.49\linewidth} % Linear Array
+                    \begin{minipage}{0.4925\linewidth}
+                        
+                        \vspace{-51pt}
+
                         \begin{tcolorbox}[colframe=black!50, colback=white, size=small]
 
                             {\bold Linear Array}
@@ -681,7 +684,7 @@
                                 \begin{tikzpicture}
                                     
                                     \foreach \i in {1,...,6}
-                                        \node[circle, draw, fill=black!50] (n\i) at (\i,0) {};
+                                        \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n\i) at (\i,0) {};
 
                                     \foreach \i in {1,...,5}
                                         \draw (n\i) -- (n\the\numexpr\i+1);
@@ -689,10 +692,8 @@
                                 \end{tikzpicture}
                             \end{center}
 
-                        \end{tcolorbox}
-                    \end{minipage}
-                    \hfill
-                    \begin{minipage}{0.49\linewidth}
+                        \end{tcolorbox} % Linear Array
+
                         \begin{tcolorbox}[colframe=black!50, colback=white, size=small]
                             
                             {\bold Mesh}
@@ -702,163 +703,23 @@
                             \begin{center}
                                 \begin{tikzpicture}
                                     
-                                    \foreach \x in {1,2,3}
-                                        \foreach \y in {1,2,3}
-                                            \node[circle, draw, fill=black!50] (n\x\y) at (\x, \y) {};
+                                    \foreach \x in {1,2,3,4}
+                                        \foreach \y in {1,2,3,4}
+                                            \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n\x\y) at (\x, \y) {};
                                 
-                                    \foreach \x in {1,2}
-                                        \foreach \y in {1,2,3}
+                                    \foreach \x in {1,2,3}
+                                        \foreach \y in {1,2,3,4}
                                             \draw (n\x\y) -- (n\the\numexpr\x+1 \y);
                                     
-                                    \foreach \x in {1,2,3}
-                                        \foreach \y in {1,2}
+                                    \foreach \x in {1,2,3,4}
+                                        \foreach \y in {1,2,3}
                                             \draw (n\x\y) -- (n\x\the\numexpr\y+1);
 
                                 \end{tikzpicture}
                             \end{center}
 
-                        \end{tcolorbox}                        
-                    \end{minipage}
+                        \end{tcolorbox} % Mesh
 
-                    \vspace{0.3cm}
-                    \noindent
-                    \begin{minipage}{0.49\linewidth}
-                        \begin{tcolorbox}[colframe=black!50, colback=white, size=small]
-                            
-                            {\bold Tree}
-                            
-                            A hierarchical structure where each node (processor) has a parent-child relationship, used for efficient data propagation.
-
-                            \begin{center}
-                                \begin{tikzpicture}
-                                    
-                                    \node[circle, draw, fill=black!50] (root) at (0,2) {};
-    
-                                    \node[circle, draw, fill=black!50] (n1) at (-1,1) {};
-                                    \node[circle, draw, fill=black!50] (n2) at (1,1) {};
-                                    
-                                    \node[circle, draw, fill=black!50] (n3) at (-1.5,0) {};
-                                    \node[circle, draw, fill=black!50] (n4) at (-0.5,0) {};
-                                    \node[circle, draw, fill=black!50] (n5) at (0.5,0) {};
-                                    \node[circle, draw, fill=black!50] (n6) at (1.5,0) {};
-                                    
-                                    \draw (root) -- (n1);
-                                    \draw (root) -- (n2);
-                                    \draw (n1) -- (n3);
-                                    \draw (n1) -- (n4);
-                                    \draw (n2) -- (n5);
-                                    \draw (n2) -- (n6);
-
-                                \end{tikzpicture}
-                            \end{center}
-
-                        \end{tcolorbox}
-                    \end{minipage}
-                    \hfill
-                    \begin{minipage}{0.49\linewidth}
-                        \begin{tcolorbox}[colframe=black!50, colback=white, size=small]
-
-                            {\bold Hypercube}
-                            
-                            An extension of the cube structure with more dimensions, providing even faster communication and better fault tolerance.
-
-                            \begin{center}
-                                \begin{tikzpicture}
-
-                                    \node[circle, draw, fill=black!50] (n1) at (0,0) {};
-                                    \node[circle, draw, fill=black!50] (n2) at (0,1) {};
-                                    \node[circle, draw, fill=black!50] (n3) at (1,0) {};
-                                    \node[circle, draw, fill=black!50] (n4) at (1,1) {};
-
-                                    \node[circle, draw, fill=black!50] (n5) at (0.3,0.3) {};
-                                    \node[circle, draw, fill=black!50] (n6) at (0.3,1.3) {};
-                                    \node[circle, draw, fill=black!50] (n7) at (1.3,0.3) {};
-                                    \node[circle, draw, fill=black!50] (n8) at (1.3,1.3) {};
-
-                                    \node[circle, draw, fill=black!50] (n9) at (3,0) {};
-                                    \node[circle, draw, fill=black!50] (n10) at (3,1) {};
-                                    \node[circle, draw, fill=black!50] (n11) at (4,0) {};
-                                    \node[circle, draw, fill=black!50] (n12) at (4,1) {};
-                                    
-                                    \node[circle, draw, fill=black!50] (n13) at (3.3,0.3) {};
-                                    \node[circle, draw, fill=black!50] (n14) at (3.3,1.3) {};
-                                    \node[circle, draw, fill=black!50] (n15) at (4.3,0.3) {};
-                                    \node[circle, draw, fill=black!50] (n16) at (4.3,1.3) {};
-
-                                    \draw (n1) -- (n2);
-                                    \draw (n1) -- (n3);
-                                    \draw (n1) -- (n5);
-                                    \draw (n2) -- (n4);
-                                    \draw (n2) -- (n6);
-                                    \draw (n3) -- (n4);
-                                    \draw (n3) -- (n7);
-                                    \draw (n4) -- (n8);
-                                    \draw (n5) -- (n6);
-                                    \draw (n5) -- (n7);
-                                    \draw (n6) -- (n8);
-                                    \draw (n7) -- (n8);
-                                    
-                                    \draw (n9) -- (n10);
-                                    \draw (n9) -- (n11);
-                                    \draw (n9) -- (n13);
-                                    \draw (n10) -- (n12);
-                                    \draw (n10) -- (n14);
-                                    \draw (n11) -- (n12);
-                                    \draw (n11) -- (n15);
-                                    \draw (n12) -- (n16);
-                                    \draw (n13) -- (n14);
-                                    \draw (n13) -- (n15);
-                                    \draw (n14) -- (n16);
-                                    \draw (n15) -- (n16);
-                                    
-                                \end{tikzpicture}
-                            \end{center}
-
-                        \end{tcolorbox}
-                    \end{minipage}
-                    
-                    \vspace{0.3cm}
-                    \noindent
-                    \begin{minipage}{0.49\linewidth}
-                        \begin{tcolorbox}[colframe=black!50, colback=white, size=small]
-                            
-                            {\bold Cube}
-                            
-                            Processors are connected in the shape of a 3D cube, offering fast communication between nearby nodes.
-
-                            \begin{center}
-                                \begin{tikzpicture}
-
-                                    \node[circle, draw, fill=black!50] (n1) at (0,0) {};
-                                    \node[circle, draw, fill=black!50] (n2) at (0,1) {};
-                                    \node[circle, draw, fill=black!50] (n3) at (1,0) {};
-                                    \node[circle, draw, fill=black!50] (n4) at (1,1) {};
-
-                                    \node[circle, draw, fill=black!50] (n5) at (0.3,0.3) {};
-                                    \node[circle, draw, fill=black!50] (n6) at (0.3,1.3) {};
-                                    \node[circle, draw, fill=black!50] (n7) at (1.3,0.3) {};
-                                    \node[circle, draw, fill=black!50] (n8) at (1.3,1.3) {};
-
-                                    \draw (n1) -- (n2);
-                                    \draw (n1) -- (n3);
-                                    \draw (n1) -- (n5);
-                                    \draw (n2) -- (n4);
-                                    \draw (n2) -- (n6);
-                                    \draw (n3) -- (n4);
-                                    \draw (n3) -- (n7);
-                                    \draw (n4) -- (n8);
-                                    \draw (n5) -- (n6);
-                                    \draw (n5) -- (n7);
-                                    \draw (n6) -- (n8);
-                                    \draw (n7) -- (n8);
-                                    
-                                \end{tikzpicture}
-                            \end{center}
-
-                        \end{tcolorbox}
-                    \end{minipage}
-                    \hfill
-                    \begin{minipage}{0.49\linewidth}
                         \begin{tcolorbox}[colframe=black!50, colback=white, size=small]
                             
                             {\bold Ring}
@@ -868,14 +729,14 @@
                             \begin{center}
                                 \begin{tikzpicture}
 
-                                    \node[circle, draw, fill=black!50] (n1) at (0,0) {};
-                                    \node[circle, draw, fill=black!50] (n2) at (2,0) {};
-                                    \node[circle, draw, fill=black!50] (n3) at (1,1) {};
-                                    \node[circle, draw, fill=black!50] (n4) at (1,-1) {};
-                                    \node[circle, draw, fill=black!50] (n5) at (0.3,0.7) {};
-                                    \node[circle, draw, fill=black!50] (n6) at (0.3,-0.7) {};
-                                    \node[circle, draw, fill=black!50] (n7) at (1.7,0.7) {};
-                                    \node[circle, draw, fill=black!50] (n8) at (1.7,-0.7) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n1) at (0,0) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n2) at (2,0) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n3) at (1,1) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n4) at (1,-1) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n5) at (0.3,0.7) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n6) at (0.3,-0.7) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n7) at (1.7,0.7) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n8) at (1.7,-0.7) {};
 
                                     \draw (n1) -- (n5);
                                     \draw (n5) -- (n3);
@@ -889,12 +750,8 @@
                                 \end{tikzpicture}
                             \end{center}
 
-                        \end{tcolorbox}
-                    \end{minipage}
-                    
-                    \vspace{0.3cm}
-                    \noindent
-                    \begin{minipage}{0.49\linewidth}
+                        \end{tcolorbox} % Ring
+
                         \begin{tcolorbox}[colframe=black!50, colback=white, size=small]
 
                             {\bold Completely Connected}
@@ -904,14 +761,14 @@
                             \begin{center}
                                 \begin{tikzpicture}
 
-                                    \node[circle, draw, fill=black!50] (n1) at (0,0) {};
-                                    \node[circle, draw, fill=black!50] (n2) at (2,0) {};
-                                    \node[circle, draw, fill=black!50] (n3) at (1,1) {};
-                                    \node[circle, draw, fill=black!50] (n4) at (1,-1) {};
-                                    \node[circle, draw, fill=black!50] (n5) at (0.3,0.7) {};
-                                    \node[circle, draw, fill=black!50] (n6) at (0.3,-0.7) {};
-                                    \node[circle, draw, fill=black!50] (n7) at (1.7,0.7) {};
-                                    \node[circle, draw, fill=black!50] (n8) at (1.7,-0.7) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n1) at (0,0) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n2) at (2,0) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n3) at (1,1) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n4) at (1,-1) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n5) at (0.3,0.7) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n6) at (0.3,-0.7) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n7) at (1.7,0.7) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n8) at (1.7,-0.7) {};
 
                                     \draw (n1) -- (n2);
                                     \draw (n1) -- (n3);
@@ -939,30 +796,8 @@
                                 \end{tikzpicture}
                             \end{center}
 
-                        \end{tcolorbox}
-                    \end{minipage}
-                    \hfill
-                    \begin{minipage}{0.49\linewidth}
-                        \begin{tcolorbox}[colframe=black!50, colback=white, size=small]
-                            
-                            {\bold Fat Tree}
-                            
-                            A tree structure with more bandwidth at higher levels, commonly used for network switches to balance loads.
+                        \end{tcolorbox} % Completely Connected
 
-                            \begin{center}
-                                \begin{tikzpicture}
-
-                                    
-                                    
-                                \end{tikzpicture}
-                            \end{center}
-                            
-                        \end{tcolorbox}
-                    \end{minipage}
-                    
-                    \vspace{0.3cm}
-                    \noindent
-                    \begin{minipage}{0.49\linewidth}
                         \begin{tcolorbox}[colframe=black!50, colback=white, size=small]
                             
                             {\bold ILLIAC}
@@ -972,15 +807,297 @@
                             \begin{center}
                                 \begin{tikzpicture}
 
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n1) at (-1,0) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n2) at (-0.9,0.38) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n3) at (-0.7,0.7) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n4) at (-0.38,0.9) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n5) at (0,1) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n6) at (0.38,0.9) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n7) at (0.7,0.7) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n8) at (0.9,0.38) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n9) at (1,0) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n10) at (0.9,-0.38) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n11) at (0.7,-0.7) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n12) at (0.38,-0.9) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n13) at (0,-1) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n14) at (-0.38,-0.9) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n15) at (-0.7,-0.7) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n16) at (-0.9,-0.38) {};
                                     
+                                    \draw (n1) -- (n2);
+                                    \draw (n2) -- (n3);
+                                    \draw (n3) -- (n4);
+                                    \draw (n4) -- (n5);
+                                    \draw (n5) -- (n6);
+                                    \draw (n6) -- (n7);
+                                    \draw (n7) -- (n8);
+                                    \draw (n8) -- (n9);
+                                    \draw (n9) -- (n10);
+                                    \draw (n10) -- (n11);
+                                    \draw (n11) -- (n12);
+                                    \draw (n12) -- (n13);
+                                    \draw (n13) -- (n14);
+                                    \draw (n14) -- (n15);
+                                    \draw (n15) -- (n16);
+                                    \draw (n16) -- (n1);
+
+                                    \draw (n1) -- (n5);
+                                    \draw (n2) -- (n6);
+                                    \draw (n3) -- (n7);
+                                    \draw (n4) -- (n8);
+                                    \draw (n5) -- (n9);
+                                    \draw (n6) -- (n10);
+                                    \draw (n7) -- (n11);
+                                    \draw (n8) -- (n12);
+                                    \draw (n9) -- (n13);
+                                    \draw (n10) -- (n14);
+                                    \draw (n11) -- (n15);
+                                    \draw (n12) -- (n16);
+                                    \draw (n13) -- (n1);
+                                    \draw (n14) -- (n2);
+                                    \draw (n15) -- (n3);
+                                    \draw (n16) -- (n4);
+
+                                \end{tikzpicture}
+                            \end{center}
+
+                        \end{tcolorbox} % ILLIAC
+
+                    \end{minipage}
+                    \hfill 
+                    \begin{minipage}{0.4925\linewidth}
+                        
+                        \begin{tcolorbox}[colframe=black!50, colback=white, size=small]
+                            
+                            {\bold Tree}
+                            
+                            A hierarchical structure where each node (processor) has a parent-child relationship, used for efficient data propagation.
+
+                            \begin{center}
+                                \begin{tikzpicture}
+                                    
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (root) at (0,2) {};
+                                    
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n1) at (-1,1) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n2) at (1,1) {};
+                                    
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n3) at (-1.5,0) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n4) at (-0.5,0) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n5) at (0.5,0) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n6) at (1.5,0) {};
+                                    
+                                    \draw (root) -- (n1);
+                                    \draw (root) -- (n2);
+                                    \draw (n1) -- (n3);
+                                    \draw (n1) -- (n4);
+                                    \draw (n2) -- (n5);
+                                    \draw (n2) -- (n6);
+
+                                \end{tikzpicture}
+                            \end{center}
+
+                        \end{tcolorbox} % Tree
+
+                        \begin{tcolorbox}[colframe=black!50, colback=white, size=small]
+
+                            {\bold Hypercube}
+                            
+                            An extension of the cube structure with more dimensions, providing even faster communication and better fault tolerance.
+
+                            \vspace{-12pt}
+
+                            \begin{center}
+                                \begin{tikzpicture}
+
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n1) at (0,0) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n2) at (0,1) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n3) at (1,0) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n4) at (1,1) {};
+
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n5) at (0.3,0.3) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n6) at (0.3,1.3) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n7) at (1.3,0.3) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n8) at (1.3,1.3) {};
+
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n9) at (2,0) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n10) at (2,1) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n11) at (3,0) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n12) at (3,1) {};
+                                    
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n13) at (2.3,0.3) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n14) at (2.3,1.3) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n15) at (3.3,0.3) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n16) at (3.3,1.3) {};
+
+                                    \draw (n1) -- (n2);
+                                    \draw (n1) -- (n3);
+                                    \draw (n1) -- (n5);
+                                    \draw (n2) -- (n4);
+                                    \draw (n2) -- (n6);
+                                    \draw (n3) -- (n4);
+                                    \draw (n3) -- (n7);
+                                    \draw (n4) -- (n8);
+                                    \draw (n5) -- (n6);
+                                    \draw (n5) -- (n7);
+                                    \draw (n6) -- (n8);
+                                    \draw (n7) -- (n8);
+                                    
+                                    \draw (n9) -- (n10);
+                                    \draw (n9) -- (n11);
+                                    \draw (n9) -- (n13);
+                                    \draw (n10) -- (n12);
+                                    \draw (n10) -- (n14);
+                                    \draw (n11) -- (n12);
+                                    \draw (n11) -- (n15);
+                                    \draw (n12) -- (n16);
+                                    \draw (n13) -- (n14);
+                                    \draw (n13) -- (n15);
+                                    \draw (n14) -- (n16);
+                                    \draw (n15) -- (n16);
+
+                                    \draw[dashed] (n3) .. controls (1.5,-0.2) .. (n9);
+                                    \draw[dashed] (n7) .. controls (1.8,0.1) .. (n13);
+                                    \draw[dashed] (n4) .. controls (1.5,1.2) .. (n10);
+                                    \draw[dashed] (n8) .. controls (1.8,1.5) .. (n14);
+
+                                    \draw[dashed] (n1) .. controls (1.5,-0.8) .. (n11);
+                                    \draw[dashed] (n5) .. controls (1.8,-0.5) .. (n15);
+                                    \draw[dashed] (n2) .. controls (1.5,1.8) .. (n12);
+                                    \draw[dashed] (n6) .. controls (1.8,2.1) .. (n16);
                                     
                                 \end{tikzpicture}
                             \end{center}
 
-                        \end{tcolorbox}
-                    \end{minipage}
-                    \hfill
-                    \begin{minipage}{0.49\linewidth}
+                            \vspace{-12pt}
+
+                        \end{tcolorbox} % Hypercube
+
+                        \begin{tcolorbox}[colframe=black!50, colback=white, size=small]
+                            
+                            {\bold Cube}
+                            
+                            Processors are connected in the shape of a 3D cube, offering fast communication between nearby nodes.
+
+                            \begin{center}
+                                \begin{tikzpicture}
+
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n1) at (0,0) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n2) at (0,1) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n3) at (1,0) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n4) at (1,1) {};
+
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n5) at (0.3,0.3) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n6) at (0.3,1.3) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n7) at (1.3,0.3) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n8) at (1.3,1.3) {};
+
+                                    \draw (n1) -- (n2);
+                                    \draw (n1) -- (n3);
+                                    \draw (n1) -- (n5);
+                                    \draw (n2) -- (n4);
+                                    \draw (n2) -- (n6);
+                                    \draw (n3) -- (n4);
+                                    \draw (n3) -- (n7);
+                                    \draw (n4) -- (n8);
+                                    \draw (n5) -- (n6);
+                                    \draw (n5) -- (n7);
+                                    \draw (n6) -- (n8);
+                                    \draw (n7) -- (n8);
+                                    
+                                \end{tikzpicture}
+                            \end{center}
+
+                        \end{tcolorbox} % Cube
+
+                        \begin{tcolorbox}[colframe=black!50, colback=white, size=small]
+                            
+                            {\bold Fat Tree}
+                            
+                            A tree structure with more bandwidth at higher levels, commonly used for network switches to balance loads.
+
+                            \begin{center}
+                                \begin{tikzpicture}
+
+                                    \node[draw, minimum width=3.8cm, minimum height=0.8cm] (LMain1) at (0,4.2) {};
+
+                                    \node[draw, minimum width=0.5cm, minimum height=0.5cm] (L11) at (-1.5,4.2) {};
+                                    \node[draw, minimum width=0.5cm, minimum height=0.5cm] (L12) at (-0.5,4.2) {};
+                                    \node[draw, minimum width=0.5cm, minimum height=0.5cm] (L13) at (0.5,4.2) {};
+                                    \node[draw, minimum width=0.5cm, minimum height=0.5cm] (L14) at (1.5,4.2) {};
+                                    
+                                    \node[draw, minimum width=1.8cm, minimum height=0.8cm] (LMain2) at (1.3,3) {};
+                                    
+                                    \node[draw, minimum width=0.5cm, minimum height=0.5cm] (L21) at (-1.8,3) {};
+                                    \node[draw, minimum width=0.5cm, minimum height=0.5cm] (L22) at (-0.8,3) {};
+                                    
+                                    \node[draw, minimum width=1.8cm, minimum height=0.8cm] (LMain3) at (-1.3,3) {};
+
+                                    \node[draw, minimum width=0.5cm, minimum height=0.5cm] (L23) at (0.8,3) {};
+                                    \node[draw, minimum width=0.5cm, minimum height=0.5cm] (L24) at (1.8,3) {};
+                                    
+                                    %%%%%%%%%%%%%%%%%%%%%
+
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n1) at (-3.0,2) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n2) at (-2.6,2) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n3) at (-2.2,2) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n4) at (-1.8,2) {};
+
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n5) at (-1.4,2) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n6) at (-1.0,2) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n7) at (-0.6,2) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n8) at (-0.2,2) {};
+                                    
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n9) at (0.2,2) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n10) at (0.6,2) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n11) at (1.0,2) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n12) at (1.4,2) {};
+                                    
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n13) at (1.8,2) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n14) at (2.2,2) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n15) at (2.6,2) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n16) at (3.0,2) {};
+
+                                    %%%%%%%%%%%%%%%%%%%%%
+
+                                    \draw (L11.south) -- (L21.north);
+                                    \draw (L11.south) -- (L22.north);
+
+                                    \draw (L13.south) -- (L23.north);
+                                    \draw (L13.south) -- (L24.north);
+
+                                    \draw[dashed] (L12.south) -- (L21.north);
+                                    \draw[dashed] (L12.south) -- (L22.north);
+
+                                    \draw[dashed] (L14.south) -- (L23.north);
+                                    \draw[dashed] (L14.south) -- (L24.north);
+
+                                    %%%%%%%%%%%%%%%%%%%%%%
+
+                                    \draw (L21.south) -- (n1);
+                                    \draw (L21.south) -- (n2);
+                                    \draw (L21.south) -- (n3);
+                                    \draw (L21.south) -- (n4);
+
+                                    \draw (L22.south) -- (n5);
+                                    \draw (L22.south) -- (n6);
+                                    \draw (L22.south) -- (n7);
+                                    \draw (L22.south) -- (n8);
+
+                                    \draw (L23.south) -- (n9);
+                                    \draw (L23.south) -- (n10);
+                                    \draw (L23.south) -- (n11);
+                                    \draw (L23.south) -- (n12);
+
+                                    \draw (L24.south) -- (n13);
+                                    \draw (L24.south) -- (n14);
+                                    \draw (L24.south) -- (n15);
+                                    \draw (L24.south) -- (n16);
+
+                                \end{tikzpicture}
+                            \end{center}
+                            
+                        \end{tcolorbox} % Fat Tree
+
                         \begin{tcolorbox}[colframe=black!50, colback=white, size=small]
                             
                             {\bold Chordal Ring}
@@ -990,17 +1107,54 @@
                             \begin{center}
                                 \begin{tikzpicture}
 
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n1) at (0,0) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n2) at (0.15,0.45) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n3) at (0.15,-0.45) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n4) at (0.45,0.8) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n5) at (0.45,-0.8) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n6) at (0.87,1) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n7) at (0.87,-1) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n8) at (1.32,1) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n9) at (1.32,-1) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n10) at (1.74,0.8) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n11) at (1.74,-0.8) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n12) at (2.04,0.45) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n13) at (2.04,-0.45) {};
+                                    \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n14) at (2.19,0) {};
                                     
+                                    \draw (n1) -- (n2);
+                                    \draw (n2) -- (n4);
+                                    \draw (n4) -- (n6);
+                                    \draw (n6) -- (n8);
+                                    \draw (n8) -- (n10);
+                                    \draw (n10) -- (n12);
+                                    \draw (n12) -- (n14);
+                                    \draw (n14) -- (n13);
+                                    \draw (n13) -- (n11);
+                                    \draw (n9) -- (n11);
+                                    \draw (n9) -- (n7);
+                                    \draw (n5) -- (n7);
+                                    \draw (n5) -- (n3);
+                                    \draw (n1) -- (n3);
+
+                                    \draw (n1) -- (n11);
+                                    \draw (n2) -- (n12);
+                                    \draw (n4) -- (n7);
+                                    \draw (n10) -- (n9);
+                                    \draw (n13) -- (n6);
+                                    \draw (n14) -- (n5);
+                                    \draw (n3) -- (n8);
                                     
                                 \end{tikzpicture}
                             \end{center}
 
-                        \end{tcolorbox}
-                    \end{minipage}
-                    
-                    \vspace{0.3cm}
+                        \end{tcolorbox} % Chordal Ring
+
+                    \end{minipage} 
+
                     \noindent
-                    \begin{minipage}{0.49\linewidth}
+                    \begin{minipage}{0.4925\linewidth}
+                        
                         \begin{tcolorbox}[colframe=black!50, colback=white, size=small]
                             
                             {\bold 2D Torus}
@@ -1010,15 +1164,83 @@
                             \begin{center}
                                 \begin{tikzpicture}
 
+                                    \foreach \x in {1,2,3,4}
+                                        \foreach \y in {1,2,3,4}
+                                            \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n\x\y) at (\x, \y) {};
                                     
+                                    \foreach \x in {1,2,3}
+                                        \foreach \y in {1,2,3,4}
+                                            \draw (n\x\y) -- (n\the\numexpr\x+1 \y);
+                                    
+                                    \foreach \x in {1,2,3,4}
+                                        \foreach \y in {1,2,3}
+                                            \draw (n\x\y) -- (n\x\the\numexpr\y+1);
+                                    
+                                    
+                                    \draw (n11) .. controls (0.5,0.5) and (0.5,4.5) .. (n14);
+                                    \draw (n21) .. controls (1.5,0.5) and (1.5,4.5) .. (n24);
+                                    \draw (n31) .. controls (2.5,0.5) and (2.5,4.5) .. (n34);
+                                    \draw (n41) .. controls (3.5,0.5) and (3.5,4.5) .. (n44);
+
+                                    \draw (n11) .. controls (0.5,1.5) and (4.5,1.5) .. (n41);
+                                    \draw (n12) .. controls (0.5,2.5) and (4.5,2.5) .. (n42);
+                                    \draw (n13) .. controls (0.5,3.5) and (4.5,3.5) .. (n43);
+                                    \draw (n14) .. controls (0.5,4.5) and (4.5,4.5) .. (n44);
+
+                                \end{tikzpicture}
+                            \end{center}
+
+                        \end{tcolorbox} % 2D Torus
+
+                    \end{minipage}
+                    \hfill
+                    \begin{minipage}{0.4925\linewidth}
+
+                        \begin{tcolorbox}[colframe=black!50, colback=white, size=small]
+                            
+                            {\bold 2D Tour (variation 2)}
+                            
+                            A variation of the 2D torus, possibly with different connectivity patterns for specialized tasks.
+
+                            \vspace{-40pt}
+                            \begin{center}
+                                \begin{tikzpicture}
+
+                                    \foreach \x in {1,2,3,4}
+                                        \foreach \y in {1,2,3,4}
+                                            \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n\x\y) at (\x, \y) {};
+                                
+                                    \foreach \x in {1,2,3}
+                                        \foreach \y in {1,2,3,4}
+                                            \draw (n\x\y) -- (n\the\numexpr\x+1 \y);
+                                    
+                                    \foreach \x in {1,2,3,4}
+                                        \foreach \y in {1,2,3}
+                                            \draw (n\x\y) -- (n\x\the\numexpr\y+1);
+                                    
+                                    \draw (n11) .. controls (2,0) and (1,5) .. (n24);
+                                    \draw (n21) .. controls (3,0) and (2,5) .. (n34);
+                                    \draw (n31) .. controls (4,0) and (3,5) .. (n44);
+                                    \draw (n41) .. controls (5,2) and (5,6) .. (n14);
+
+                                    \draw (n14) .. controls (0,3) and (5,4) .. (n43);
+                                    \draw (n13) .. controls (0,2) and (5,3) .. (n42);
+                                    \draw (n12) .. controls (0,1) and (5,2) .. (n41);
+                                    \draw (n11) .. controls (0,2) and (0,6) .. (n44);
                                     
                                 \end{tikzpicture}
                             \end{center}
 
-                        \end{tcolorbox}
+                            \vspace{-27pt}
+
+                        \end{tcolorbox} % 2D Tour (variation 2)
+                        
                     \end{minipage}
-                    \hfill
-                    \begin{minipage}{0.49\linewidth}
+
+                    \vspace{5pt}
+                    \noindent
+                    \begin{minipage}{1\linewidth}
+                        
                         \begin{tcolorbox}[colframe=black!50, colback=white, size=small]
                             
                             {\bold 3D Mesh}
@@ -1028,33 +1250,180 @@
                             \begin{center}
                                 \begin{tikzpicture}
 
-                                    
-                                    
+                                    \foreach \x in {1,2,3,4}
+                                    \foreach \y in {1,2,3,4}
+                                        \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n\x\y) at (\x, \y) {};
+                                
+                                \foreach \x in {1,2,3}
+                                    \foreach \y in {1,2,3,4}
+                                        \draw (n\x\y) -- (n\the\numexpr\x+1 \y);
+                                
+                                \foreach \x in {1,2,3,4}
+                                    \foreach \y in {1,2,3}
+                                        \draw (n\x\y) -- (n\x\the\numexpr\y+1);
+                                        
+
+                                \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n211) at (1.4,1.25) {}; 
+                                \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n221) at (2.4,1.25) {}; 
+                                \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n231) at (3.4,1.25) {}; 
+                                \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n241) at (4.4,1.25) {};
+
+                                \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n212) at (1.4,2.25) {};
+                                \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n222) at (2.4,2.25) {};
+                                \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n232) at (3.4,2.25) {};
+                                \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n242) at (4.4,2.25) {};
+                                
+                                \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n223) at (2.4,3.25) {};
+                                \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n213) at (1.4,3.25) {};
+                                \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n233) at (3.4,3.25) {};
+                                \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n243) at (4.4,3.25) {};
+                                
+                                \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n214) at (1.4,4.25) {};
+                                \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n224) at (2.4,4.25) {};
+                                \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n234) at (3.4,4.25) {};
+                                \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n244) at (4.4,4.25) {};
+
+                                \draw (n211) -- (n221);
+                                \draw (n221) -- (n231);
+                                \draw (n231) -- (n241);
+
+                                \draw (n212) -- (n222);
+                                \draw (n222) -- (n232);
+                                \draw (n232) -- (n242);
+                                
+                                \draw (n213) -- (n223);
+                                \draw (n223) -- (n233);
+                                \draw (n233) -- (n243);
+                                
+                                \draw (n214) -- (n224);
+                                \draw (n224) -- (n234);
+                                \draw (n234) -- (n244);
+
+                                \draw (n211) -- (n212);
+                                \draw (n212) -- (n213);
+                                \draw (n213) -- (n214);
+
+                                \draw (n221) -- (n222);
+                                \draw (n222) -- (n223);
+                                \draw (n223) -- (n224);
+                                
+                                \draw (n231) -- (n232);
+                                \draw (n232) -- (n233);
+                                \draw (n233) -- (n234);
+                                
+                                \draw (n241) -- (n242);
+                                \draw (n242) -- (n243);
+                                \draw (n243) -- (n244);
+
+                                %%%%%%%%%%%%%%%%%%%%%%%
+
+                                \draw (n11) -- (n211);
+                                \draw (n12) -- (n212);
+                                \draw (n13) -- (n213);
+                                \draw (n14) -- (n214);
+
+                                \draw (n21) -- (n221);
+                                \draw (n22) -- (n222);
+                                \draw (n23) -- (n223);
+                                \draw (n24) -- (n224);
+                                
+                                \draw (n31) -- (n231);
+                                \draw (n32) -- (n232);
+                                \draw (n33) -- (n233);
+                                \draw (n34) -- (n234);
+                                
+                                \draw (n41) -- (n241);
+                                \draw (n42) -- (n242);
+                                \draw (n43) -- (n243);
+                                \draw (n44) -- (n244);
+
+                                %%%%%%%%%%%%%%%%%%%%%%%
+
+                                \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n311) at (1.8,1.5) {}; 
+                                \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n321) at (2.8,1.5) {}; 
+                                \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n331) at (3.8,1.5) {}; 
+                                \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n341) at (4.8,1.5) {};
+
+                                \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n312) at (1.8,2.5) {};
+                                \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n322) at (2.8,2.5) {};
+                                \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n332) at (3.8,2.5) {};
+                                \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n342) at (4.8,2.5) {};
+                                
+                                \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n323) at (2.8,3.5) {};
+                                \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n313) at (1.8,3.5) {};
+                                \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n333) at (3.8,3.5) {};
+                                \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n343) at (4.8,3.5) {};
+                                
+                                \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n314) at (1.8,4.5) {};
+                                \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n324) at (2.8,4.5) {};
+                                \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n334) at (3.8,4.5) {};
+                                \node[circle, fill=black, minimum size=5pt, inner sep=0pt] (n344) at (4.8,4.5) {};
+
+                                \draw (n311) -- (n321);
+                                \draw (n321) -- (n331);
+                                \draw (n331) -- (n341);
+
+                                \draw (n312) -- (n322);
+                                \draw (n322) -- (n332);
+                                \draw (n332) -- (n342);
+                                
+                                \draw (n313) -- (n323);
+                                \draw (n323) -- (n333);
+                                \draw (n333) -- (n343);
+                                
+                                \draw (n314) -- (n324);
+                                \draw (n324) -- (n334);
+                                \draw (n334) -- (n344);
+
+                                \draw (n311) -- (n312);
+                                \draw (n312) -- (n313);
+                                \draw (n313) -- (n314);
+
+                                \draw (n321) -- (n322);
+                                \draw (n322) -- (n323);
+                                \draw (n323) -- (n324);
+                                
+                                \draw (n331) -- (n332);
+                                \draw (n332) -- (n333);
+                                \draw (n333) -- (n334);
+                                
+                                \draw (n341) -- (n342);
+                                \draw (n342) -- (n343);
+                                \draw (n343) -- (n344);
+
+                                %%%%%%%%%%%%%%%%%%%%%%%%%
+
+                                \draw (n211) -- (n311);
+                                \draw (n212) -- (n312);
+                                \draw (n213) -- (n313);
+                                \draw (n214) -- (n314);
+
+                                \draw (n221) -- (n321);
+                                \draw (n222) -- (n322);
+                                \draw (n223) -- (n323);
+                                \draw (n224) -- (n324);
+                                
+                                \draw (n231) -- (n331);
+                                \draw (n232) -- (n332);
+                                \draw (n233) -- (n333);
+                                \draw (n234) -- (n334);
+                                
+                                \draw (n241) -- (n341);
+                                \draw (n242) -- (n342);
+                                \draw (n243) -- (n343);
+                                \draw (n244) -- (n344);
+
+
                                 \end{tikzpicture}
                             \end{center}
 
-                        \end{tcolorbox}
+                            \vspace{1pt}
+
+                        \end{tcolorbox} % 3D mesh
+
                     \end{minipage}
-                    
-                    \vspace{0.3cm}
-                    \noindent
-                    \begin{minipage}{1\linewidth}
-                        \begin{tcolorbox}[colframe=black!50, colback=white, size=small]
-                            
-                            {\bold 2D Tour (variation 2)}
-                            
-                            A variation of the 2D torus, possibly with different connectivity patterns for specialized tasks.
 
-                            \begin{center}
-                                \begin{tikzpicture}
-
-                                    
-                                    
-                                \end{tikzpicture}
-                            \end{center}
-
-                        \end{tcolorbox}
-                    \end{minipage}
+                    \vspace{0.4cm}
 
                     Hello
 
